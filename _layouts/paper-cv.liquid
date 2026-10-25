@@ -1,0 +1,104 @@
+---
+layout: default
+---
+{%- comment -%}
+  CV page drawn from _data/cv.yml — the same file bin/build_cv.py turns into
+  assets/pdf/CV.pdf and assets/pdf/Resume.pdf.
+  Front matter: section_titles (map from a section key to the heading shown here)
+{%- endcomment -%}
+{% assign cv = site.data.cv.cv %}
+{% assign titles = page.section_titles %}
+
+<div class="paper-page">
+  <div class="cv-head">
+    <div>
+      <h1>{{ page.title }}</h1>
+      <p class="cv-updated">최종 수정 {{ site.time | date: '%Y.%m' }}</p>
+    </div>
+    <div class="paper-links">
+      <a href="{{ '/assets/pdf/CV.pdf' | relative_url }}" target="_blank" rel="noopener"><span aria-hidden="true">📄</span>CV (PDF)</a>
+      <a href="{{ '/assets/pdf/Resume.pdf' | relative_url }}" target="_blank" rel="noopener"><span aria-hidden="true">📄</span>Résumé (PDF)</a>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <aside class="two-col-side">{% include paper_toc.liquid %}</aside>
+    <div class="two-col-main cv-body" data-toc-root>
+      {% for section in cv.sections %}
+        {% assign key = section[0] %}
+        {% assign entries = section[1] %}
+        {% assign heading = titles[key] | default: key | replace: '_', ' ' | capitalize %}
+        <section class="cv-section">
+          <h2 id="cv-{{ key | slugify }}">{{ heading }}</h2>
+          {% for e in entries %}
+            {% capture when %}
+              {%- if e.start_date -%}
+                {{ e.start_date | replace: '-', '.' }} – {{ e.end_date | default: 'present' | replace: '-', '.' | replace: 'present', '현재' }}
+              {%- elsif e.date -%}
+                {{ e.date | replace: '-', '.' }}
+              {%- endif -%}
+            {% endcapture %}
+            {% if e.label and e.details %}
+              <div class="cv-entry is-skill">
+                <span class="cv-when">{{ e.label }}</span>
+                <div class="cv-what tag-row">
+                  {% assign parts = e.details | split: ', ' %}
+                  {% for part in parts -%}
+                    <span class="paper-tag">{{ part }}</span>
+                  {%- endfor %}
+                </div>
+              </div>
+            {% elsif e.bullet %}
+              <div class="cv-entry is-line">
+                <span class="cv-when"></span>
+                <div class="cv-what">{{ e.bullet | markdownify | remove: '<p>' | remove: '</p>' }}</div>
+              </div>
+            {% else %}
+              <div class="cv-entry">
+                <span class="cv-when">{{ when | strip }}</span>
+                <div class="cv-what">
+                  {% if e.institution %}
+                    <span class="cv-title">
+                      {{- e.degree -}}
+                      {%- if e.area %} · {{ e.area }}{% endif -%}
+                    </span>
+                    <span class="cv-sub">
+                      {{- e.institution -}}
+                      {%- if e.location %} · {{ e.location }}{% endif -%}
+                    </span>
+                  {% elsif e.company %}
+                    <span class="cv-title">{{ e.position }}</span>
+                    <span class="cv-sub">
+                      {{- e.company -}}
+                      {%- if e.location %} · {{ e.location }}{% endif -%}
+                    </span>
+                  {% elsif e.authors %}
+                    <span class="cv-title">{{ e.title }}</span>
+                    <span class="cv-sub">{{ e.authors | join: ', ' | markdownify | remove: '<p>' | remove: '</p>' }}</span>
+                    {% if e.journal -%}
+                      <span class="cv-sub">{{ e.journal }}</span>
+                    {%- endif %}
+                  {% else %}
+                    <span class="cv-title">{{ e.name | default: e.title }}</span>
+                  {% endif %}
+                  {% if e.summary %}
+                    <p class="cv-sub">{{ e.summary }}</p>
+                  {% endif %}
+                  {% if e.highlights %}
+                    <ul class="cv-highlights">
+                      {% for h in e.highlights %}
+                        <li>{{ h | markdownify | remove: '<p>' | remove: '</p>' }}</li>
+                      {% endfor %}
+                    </ul>
+                  {% endif %}
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </section>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% include paper_scripts.liquid %}

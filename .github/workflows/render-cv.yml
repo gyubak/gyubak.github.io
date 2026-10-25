@@ -1,4 +1,6 @@
-name: Render a CV
+name: Render CV and Résumé PDFs
+# _data/cv.yml이 바뀌면 bin/build_cv.py로 assets/pdf/CV.pdf와 Resume.pdf를 다시 만들고,
+# 새 PDF가 사이트에 반영되도록 배포를 한 번 더 실행한다.
 on:
   push:
     branches:
@@ -6,13 +8,11 @@ on:
       - master
     paths:
       - "_data/cv.yml"
-      - "assets/rendercv/design.yaml"
-      - "assets/rendercv/locale.yaml"
-      - "assets/rendercv/settings.yaml"
-  workflow_call:
+      - "bin/build_cv.py"
   workflow_dispatch:
 permissions:
   contents: write
+  actions: write
 jobs:
   rendercv:
     name: RenderCV
@@ -23,36 +23,24 @@ jobs:
         with:
           python-version: "3.12"
       - name: Install RenderCV
-        run: |
-          pip install -r requirements.txt
-      - name: RenderCV
-        run: |
-          cv_file=$(find _data  -maxdepth 1 -type f \( -name "cv.yaml" -o -name "cv.yml" \))
-          if [ -z "$cv_file" ]; then
-            echo "No cv.yml file found!"
-            exit 1
-          fi
-          rendercv_dir=$(find assets -maxdepth 1 -type d -name "rendercv")
-          if [ -z "$rendercv_dir" ]; then
-            echo "No RenderCV config directory found!"
-            exit 1
-          fi
-          settings=$(find $rendercv_dir -maxdepth 1 -type f \( -name "settings.yaml" -o -name "settings.yml" \))
-          if [ -z "$settings" ]; then
-            echo "Missing RenderCV config file!"
-            exit 1
-          fi
-          rendercv render $cv_file --settings $settings
-          rm assets/rendercv/rendercv_output/*.typ
-      - name: Upload rendercv_output as an artifact
-        uses: actions/upload-artifact@v7
-        with:
-          name: RenderCV Output
-          path: assets/rendercv/rendercv_output
-      - name: Push the changes
+        run: pip install "rendercv[full]" pyyaml
+      - name: Build PDFs
+        run: python bin/build_cv.py
+      - name: Commit the PDFs
+        id: commit
         run: |
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
-          git add -A
-          git commit -m "chore: render the latest CV"
-          git push
+          git add assets/pdf/CV.pdf assets/pdf/Resume.pdf
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "chore: render the latest CV and Résumé"
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Redeploy the site
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy.yml --ref "${{ github.ref_name }}"
