@@ -1,0 +1,19 @@
+---
+layout: default
+title: Research
+permalink: /research/
+nav: true
+nav_order: 1
+---
+
+<div class="paper-page">
+  <h1>Research</h1>
+  <p class="lead">자율주행과 로보틱스를 위한 AI 모델에 관한 연구입니다.</p>
+
+  <div class="research-grid research-grid-page">
+    {% assign sorted_projects = site.projects | sort: "importance" %} {% for project in sorted_projects %} {% include research_card.liquid
+    project=project %} {% endfor %}
+  </div>
+</div>
+
+{% include paper_scripts.liquid %}

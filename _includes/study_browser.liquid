@@ -1,0 +1,42 @@
+{%- comment -%}
+  Study page: tabs (기초·응용 / Review), a subject list on the left and the
+  posts of the chosen subject on the right. Structure comes from _data/study.yml;
+  assets/js/paper.js does the switching. Without JavaScript every subject is listed.
+{%- endcomment -%}
+{%- assign items = '' | split: '' -%}
+{%- for post in site.posts -%}
+  {%- capture item -%}{"title": {{ post.title | jsonify }}, "url": {{ post.url | relative_url | jsonify }}, "date": {{ post.date | date: '%Y.%m.%d' | jsonify }}, "section": {{ post.section | jsonify }}, "subject": {{ post.subject | jsonify }}}{%- endcapture -%}
+  {%- assign items = items | push: item -%}
+{%- endfor -%}
+<script type="application/json" id="study-data">
+  {"tabs": {{ site.data.study.tabs | jsonify }}, "posts": [{{ items | join: ',' }}]}
+</script>
+
+<div class="study-browser" data-study-browser>
+  <div class="study-tabs" role="tablist" aria-label="Study 분류">
+    {% for tab in site.data.study.tabs %}
+      <button type="button" role="tab" class="study-tab" data-tab="{{ tab.id }}">{{ tab.label }}</button>
+    {% endfor %}
+    <span class="study-tab-indicator" aria-hidden="true"></span>
+  </div>
+
+  <div class="two-col">
+    <aside class="two-col-side study-subjects" aria-label="분류 목록">
+      <span class="study-subject-indicator" aria-hidden="true"></span>
+      <div data-study-groups></div>
+    </aside>
+    <section class="two-col-main study-list" aria-live="polite">
+      <p class="study-list-group" data-study-group-label></p>
+      <h2 class="study-list-title" data-study-subject-label></h2>
+      <div data-study-posts>
+        <noscript>
+          {% for post in site.posts %}
+            <a class="study-row" href="{{ post.url | relative_url }}"
+              ><span>{{ post.title }}</span><span class="paper-label">{{ post.date | date: '%Y.%m.%d' }}</span></a
+            >
+          {% endfor %}
+        </noscript>
+      </div>
+    </section>
+  </div>
+</div>

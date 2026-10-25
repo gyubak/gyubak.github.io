@@ -1,0 +1,66 @@
+---
+layout: default
+---
+{%- comment -%}
+  One research project (files in _projects/).
+  Front matter:
+    title, description        name and one-line summary
+    stack                     list of tech tags
+    paper, code, video        links (optional)
+    media                     image/GIF/mp4 shown under the header (optional)
+    media_caption
+    period, role, venue       shown in the info band
+    thumbnail, placeholder    card image on the home and Research pages
+    featured, importance      pick and order the home page's three cards
+  Research notes for this project live in _research_notes/ with `project: <this file's name>`.
+{%- endcomment -%}
+{% assign notes = site.research_notes | where: 'project', page.slug %}
+
+<div class="paper-page"> <a class="back-link" href="{{ '/research/' | relative_url }}">← Research</a>
+
+<div class="title-row"> <h1>{{ page.title }}</h1>
+{% if notes.size > 0 %}
+  <a class="notes-button" href="{{ '/research/notes/' | relative_url }}?project={{ page.slug }}">
+  {% include paper_icon.liquid name='note' %}
+  <span> <span class="notes-button-title">연구 노트 →</span> <span class="notes-button-sub">다듬지 않은 생각의 흐름</span> </span> </a>
+{% endif %}
+</div>
+
+{% if page.description %}<p class="lead">{{ page.description }}</p>{% endif %}
+
+<div class="meta-row"> <div class="tag-row">
+{% for t in page.stack -%}
+  <span class="paper-tag">{{ t }}</span>
+{%- endfor %}
+</div> <div class="paper-links">
+{% if page.paper %}<a href="{{ page.paper }}" target="_blank" rel="noopener"><span aria-hidden="true">📄</span>Paper</a>{% endif %}
+{% if page.code %}<a href="{{ page.code }}" target="_blank" rel="noopener"><span aria-hidden="true">🪡</span>Code</a>{% endif %}
+{% if page.video %}<a href="{{ page.video }}" target="_blank" rel="noopener"><span aria-hidden="true">🎬</span>Video</a>{% endif %}
+</div> </div>
+
+<figure class="research-media"> <div class="research-media-frame">
+{% if page.media %}
+  {% assign media_ext = page.media | split: '.' | last | downcase %}
+  {% if media_ext == 'mp4' or media_ext == 'webm' %}
+    <video src="{{ page.media | relative_url }}" controls muted loop playsinline></video>
+  {% else %}
+    <img src="{{ page.media | relative_url }}" alt="{{ page.media_caption | default: page.title }}">
+  {% endif %}
+{% else %}
+  {% include paper_placeholder.liquid kind=page.placeholder %}
+{% endif %}
+</div> <figcaption>{{ page.media_caption | default: '[대표 데모 영상 또는 결과 그림]' }}</figcaption> </figure>
+
+{% if page.period or page.role or page.venue %}
+  <dl class="info-band">
+  {% if page.period %}<div><dt>기간</dt><dd>{{ page.period }}</dd></div>{% endif %}
+  {% if page.role %}<div><dt>역할</dt><dd>{{ page.role }}</dd></div>{% endif %}
+  {% if page.venue %}<div><dt>발표</dt><dd>{{ page.venue }}</dd></div>{% endif %}
+  </dl>
+{% endif %}
+
+<div class="two-col"> <aside class="two-col-side">{% include paper_toc.liquid %}</aside> <article class="two-col-main paper-article" data-toc-root>
+{{ content }}
+</article> </div> </div>
+
+{% include paper_scripts.liquid %}

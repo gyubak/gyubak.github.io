@@ -1,0 +1,23 @@
+# Study 페이지의 분류 구조입니다.
+#
+# - 글(_posts)의 머리말에 `section`과 `subject`를 적으면 여기 분류에 맞춰 정리됩니다.
+#     section: basic | applied | review
+#     subject: 아래 subjects 목록에 있는 이름 그대로
+# - 과목을 추가하거나 순서를 바꾸려면 이 파일만 고치면 됩니다.
+
+tabs:
+  - id: basic-applied
+    label: 기초 · 응용
+    groups:
+      - id: basic
+        title: 기초
+        subjects: [확률·통계, 선형대수, 최적화, 제어, 딥러닝]
+      - id: applied
+        title: 응용
+        subjects: [표준·규정, 도구·인프라, 시스템 설계]
+  - id: review
+    label: Review
+    groups:
+      - id: review
+        title:
+        subjects: [Paper, Release]

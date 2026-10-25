@@ -1,0 +1,66 @@
+---
+layout: default
+---
+{%- comment -%}
+  A Study post (files in _posts/).
+  Front matter: title, section (basic | applied | review), subject, tags, last_modified_at (optional)
+{%- endcomment -%}
+{% case page.section %}
+  {% when 'basic' -%}
+    {%- assign section_label = '기초' -%}
+    {%- assign section_hash = '' %}
+  {% when 'applied' -%}
+    {%- assign section_label = '응용' -%}
+    {%- assign section_hash = '' %}
+  {% when 'review' -%}
+    {%- assign section_label = 'Review' -%}
+    {%- assign section_hash = '#review' %}
+  {% else -%}
+    {%- assign section_label = '' -%}
+    {%- assign section_hash = '' %}
+{% endcase %}
+
+<div class="paper-page">
+  <div class="two-col">
+    <aside class="two-col-side note-side">{% include paper_toc.liquid %}</aside>
+    <article class="two-col-main paper-article" data-toc-root>
+      <p class="breadcrumb">
+        <a href="{{ '/study/' | relative_url }}{{ section_hash }}">Study</a>
+        {% if section_label != '' %}/ {{ section_label }}{% endif %}
+        {% if page.subject -%}
+          / <span class="is-accent">{{ page.subject }}</span>
+        {%- endif %}
+      </p>
+      <h1 class="note-title">{{ page.title }}</h1>
+      <div class="note-meta paper-label">
+        <span>{{ page.date | date: '%Y.%m.%d' }}</span>
+        {% assign last_date = page.last_modified_at | default: page.last_updated %}
+        {% if last_date -%}
+          <span>수정 {{ last_date | date: '%Y.%m.%d' }}</span>
+        {%- endif %}
+        {% for tag in page.tags -%}
+          <span>#{{ tag }}</span>
+        {%- endfor %}
+      </div>
+
+      {{ content }}
+
+      <nav class="prev-next" aria-label="이전 다음 글">
+        {% if page.previous %}
+          <a href="{{ page.previous.url | relative_url }}"
+            ><span class="prev-next-label">← 이전 글</span><span>{{ page.previous.title }}</span></a
+          >
+        {% else %}
+          <span></span>
+        {% endif %}
+        {% if page.next %}
+          <a class="is-next" href="{{ page.next.url | relative_url }}"
+            ><span class="prev-next-label">다음 글 →</span><span>{{ page.next.title }}</span></a
+          >
+        {% endif %}
+      </nav>
+    </article>
+  </div>
+</div>
+
+{% include paper_scripts.liquid %}

@@ -1,0 +1,29 @@
+{%- comment -%} One research card. Usage: {% include research_card.liquid project=project %} {%- endcomment -%}
+{% assign p = include.project %}
+<a class="paper-card research-card" href="{{ p.url | relative_url }}">
+  <div class="research-card-media">
+    {% if p.thumbnail %}
+      {% assign thumb_ext = p.thumbnail | split: '.' | last | downcase %}
+      {% if thumb_ext == 'mp4' or thumb_ext == 'webm' %}
+        <video src="{{ p.thumbnail | relative_url }}" muted loop playsinline preload="metadata" data-hover-play></video>
+      {% else %}
+        <img src="{{ p.thumbnail | relative_url }}" alt="" loading="lazy">
+      {% endif %}
+    {% else %}
+      {% include paper_placeholder.liquid kind=p.placeholder %}
+    {% endif %}
+  </div>
+  <div class="research-card-body">
+    <h3>{{ p.title }}</h3>
+    {% if p.description %}
+      <p>{{ p.description }}</p>
+    {% endif %}
+    {% if p.stack %}
+      <div class="tag-row">
+        {% for t in p.stack -%}
+          <span class="paper-tag">{{ t }}</span>
+        {%- endfor %}
+      </div>
+    {% endif %}
+  </div>
+</a>

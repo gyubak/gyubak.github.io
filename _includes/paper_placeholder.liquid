@@ -1,0 +1,55 @@
+{%- comment -%}
+  Decorative stand-ins until real images or videos are added.
+  Usage: {% include paper_placeholder.liquid kind='bev' %}  (bev | cloud | fan | arm)
+{%- endcomment -%}
+{%- case include.kind -%}
+  {%- when 'bev' -%}
+    <svg class="paper-placeholder" role="img" aria-label="조감도 주행 장면 예시 그림" viewBox="0 0 560 340" preserveAspectRatio="xMidYMid slice">
+      <defs><pattern id="paper-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#EDE6D6" stroke-width="1"/></pattern></defs>
+      <rect width="560" height="340" fill="url(#paper-grid)"/>
+      <rect x="160" y="0" width="240" height="340" fill="#F1EBDD"/>
+      <line x1="160" y1="0" x2="160" y2="340" stroke="#B9AF99" stroke-width="2"/>
+      <line x1="400" y1="0" x2="400" y2="340" stroke="#B9AF99" stroke-width="2"/>
+      <line x1="240" y1="0" x2="240" y2="340" stroke="#B9AF99" stroke-width="2" stroke-dasharray="14 12"/>
+      <line x1="320" y1="0" x2="320" y2="340" stroke="#B9AF99" stroke-width="2" stroke-dasharray="14 12"/>
+      <path d="M280 280 C 280 210, 282 150, 300 105 S 360 40, 360 0" fill="none" stroke="#1F4E8C" stroke-width="3"/>
+      <rect x="268" y="266" width="24" height="44" rx="5" fill="#1F4E8C"/>
+      <rect x="348" y="140" width="24" height="44" rx="5" fill="#8C8371"/>
+      <path d="M360 140 C 360 100, 360 60, 360 18" fill="none" stroke="#B4532A" stroke-width="2"/>
+      <path d="M360 140 C 360 100, 340 60, 300 26" fill="none" stroke="#B4532A" stroke-width="2" stroke-opacity="0.45"/>
+      <circle cx="360" cy="18" r="4" fill="#B4532A"/>
+      <circle cx="300" cy="26" r="4" fill="#B4532A" fill-opacity="0.45"/>
+      <rect x="188" y="56" width="24" height="44" rx="5" fill="#8C8371"/>
+      <path d="M200 100 C 200 146, 200 190, 200 236" fill="none" stroke="#B4532A" stroke-width="2"/>
+      <circle cx="200" cy="236" r="4" fill="#B4532A"/>
+    </svg>
+  {%- when 'cloud' -%}
+    <svg class="paper-placeholder" aria-hidden="true" viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice">
+      <rect width="320" height="180" fill="#F1EBDD"/>
+      <g fill="#B9AF99"><circle cx="60" cy="120" r="2"/><circle cx="80" cy="110" r="2"/><circle cx="100" cy="130" r="2"/><circle cx="140" cy="100" r="2"/><circle cx="170" cy="125" r="2"/><circle cx="210" cy="95" r="2"/><circle cx="240" cy="120" r="2"/><circle cx="270" cy="105" r="2"/><circle cx="120" cy="80" r="2"/><circle cx="190" cy="70" r="2"/></g>
+      <path d="M90 70 L140 60 L160 80 L110 92 Z M90 70 L90 110 L110 130 L110 92 M160 80 L160 118 L110 130" fill="none" stroke="#1F4E8C" stroke-width="2"/>
+      <path d="M200 90 L240 82 L256 98 L216 106 Z M200 90 L200 120 L216 136 L216 106 M256 98 L256 128 L216 136" fill="none" stroke="#B4532A" stroke-width="2"/>
+    </svg>
+  {%- when 'arm' -%}
+    <svg class="paper-placeholder" aria-hidden="true" viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice">
+      <rect width="320" height="180" fill="#F1EBDD"/>
+      <rect x="130" y="140" width="60" height="14" rx="3" fill="#8C8371"/>
+      <path d="M160 140 L 140 90 L 200 60 L 230 80" fill="none" stroke="#1F4E8C" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="160" cy="140" r="6" fill="#FFFDF8" stroke="#1F4E8C" stroke-width="2"/>
+      <circle cx="140" cy="90" r="6" fill="#FFFDF8" stroke="#1F4E8C" stroke-width="2"/>
+      <circle cx="200" cy="60" r="6" fill="#FFFDF8" stroke="#1F4E8C" stroke-width="2"/>
+      <rect x="240" y="112" width="26" height="26" rx="3" fill="none" stroke="#B4532A" stroke-width="2"/>
+      <path d="M230 80 C 250 90, 255 100, 253 110" fill="none" stroke="#B4532A" stroke-width="2" stroke-dasharray="4 5"/>
+    </svg>
+  {%- else -%}
+    <svg class="paper-placeholder" aria-hidden="true" viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice">
+      <rect width="320" height="180" fill="#F1EBDD"/>
+      <rect x="40" y="80" width="30" height="18" rx="4" fill="#8C8371"/>
+      <path d="M70 89 C 140 89, 200 89, 280 89" fill="none" stroke="#B4532A" stroke-width="2"/>
+      <path d="M70 89 C 140 89, 200 70, 270 40" fill="none" stroke="#B4532A" stroke-width="2" stroke-opacity="0.6"/>
+      <path d="M70 89 C 140 89, 200 110, 270 140" fill="none" stroke="#B4532A" stroke-width="2" stroke-opacity="0.35"/>
+      <circle cx="280" cy="89" r="5" fill="#B4532A"/><circle cx="270" cy="40" r="5" fill="#B4532A" fill-opacity="0.6"/><circle cx="270" cy="140" r="5" fill="#B4532A" fill-opacity="0.35"/>
+      <line x1="20" y1="60" x2="300" y2="60" stroke="#D6CDB8" stroke-dasharray="8 8"/>
+      <line x1="20" y1="118" x2="300" y2="118" stroke="#D6CDB8" stroke-dasharray="8 8"/>
+    </svg>
+{%- endcase -%}

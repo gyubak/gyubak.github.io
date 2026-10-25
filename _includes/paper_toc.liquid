@@ -1,0 +1,9 @@
+{%- comment -%}
+  Left contents column. assets/js/paper.js fills it from the h2 headings inside
+  the element matched by `root` (default [data-toc-root]) and hides it when
+  there are none. Usage: {% include paper_toc.liquid title='ARCHIVE' root='[data-notes-list]' %}
+{%- endcomment -%}
+<nav class="paper-toc" data-paper-toc data-root="{{ include.root | default: '[data-toc-root]' }}" aria-label="목차" hidden>
+  <p class="paper-toc-title">{{ include.title | default: 'CONTENTS' }}</p>
+  <div class="paper-toc-list"></div>
+</nav>

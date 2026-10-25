@@ -1,0 +1,50 @@
+{%- comment -%}
+  /research/notes/?project=<slug> — the notes of one project as a dated log.
+  All notes are printed; assets/js/paper.js keeps only the chosen project's.
+  Note front matter: title, date, project, kind (실험 | 아이디어 | 회고 ...)
+  A note whose body is longer than its first paragraph gets a "계속 읽기" link.
+{%- endcomment -%}
+{% assign notes = site.research_notes | sort: 'date' | reverse %}
+<div class="paper-page" data-research-notes>
+  <a class="back-link" data-notes-back href="{{ '/research/' | relative_url }}">← Research</a>
+  <h1>연구 노트</h1>
+  <p class="lead">정리되지 않은 생각의 흐름입니다. 틀린 가설과 버려진 아이디어도 지우지 않고 남겨둡니다.</p>
+
+  <div class="two-col">
+    <aside class="two-col-side">
+      {% include paper_toc.liquid title='ARCHIVE' root='[data-notes-list]' %}
+    </aside>
+    <div class="two-col-main" data-notes-list>
+      {% assign current_month = '' %}
+      {% for note in notes %}
+        {% assign month = note.date | date: '%Y.%m' %}
+        {% assign project = site.projects | where: 'slug', note.project | first %}
+        <article
+          class="rn-entry"
+          data-project="{{ note.project }}"
+          data-month="{{ month }}"
+          data-project-title="{{ project.title | escape }}"
+          data-project-url="{{ project.url | relative_url }}"
+        >
+          <div class="rn-side">
+            <span class="paper-label">{{ note.date | date: '%m.%d' }}</span>
+            {% if note.kind %}
+              <span class="paper-label rn-kind" data-kind="{{ note.kind }}">{{ note.kind }}</span>
+            {% endif %}
+          </div>
+          <div class="rn-body">
+            <h3>{{ note.title }}</h3>
+            {% assign excerpt_size = note.excerpt | strip_html | strip | size %}
+            {% assign content_size = note.content | strip_html | strip | size %}
+            {{ note.excerpt }}
+            {% if content_size > excerpt_size %}
+              <a class="read-more" href="{{ note.url | relative_url }}">계속 읽기 →</a>
+            {% endif %}
+          </div>
+        </article>
+      {% else %}
+        <p class="empty-note">아직 노트가 없어요.</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>

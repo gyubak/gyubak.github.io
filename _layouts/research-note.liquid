@@ -1,0 +1,26 @@
+---
+layout: default
+---
+{%- comment -%} A single research note opened from "계속 읽기". {%- endcomment -%}
+{% assign project = site.projects | where: 'slug', page.project | first %}
+<div class="paper-page">
+  <div class="two-col">
+    <aside class="two-col-side note-side">{% include paper_toc.liquid %}</aside>
+    <article class="two-col-main paper-article" data-toc-root>
+      <p class="breadcrumb">
+        <a href="{{ '/research/notes/' | relative_url }}?project={{ page.project }}">연구 노트</a>
+        {% if project %}/ {{ project.title }}{% endif %}
+      </p>
+      <h1 class="note-title">{{ page.title }}</h1>
+      <div class="note-meta paper-label">
+        <span>{{ page.date | date: '%Y.%m.%d' }}</span>
+        {% if page.kind -%}
+          <span class="is-accent">{{ page.kind }}</span>
+        {%- endif %}
+      </div>
+      {{ content }}
+    </article>
+  </div>
+</div>
+
+{% include paper_scripts.liquid %}

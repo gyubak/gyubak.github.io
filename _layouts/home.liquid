@@ -1,0 +1,122 @@
+---
+layout: default
+---
+{%- comment -%}
+  Home / About page.
+  Content of the page file is the one-paragraph introduction.
+  Front matter:
+    display_name   name shown large (defaults to the site title)
+    demo           image, GIF or mp4 in /assets/ shown beside the name
+    demo_caption   caption under the demo
+    interests      list of {title, text}
+{%- endcomment -%}
+{% assign display_name = page.display_name | default: site.title %}
+{% assign socials = site.data.socials %}
+
+<section class="home-hero">
+  <div class="home-hero-text">
+    <h1 class="home-name">{{ display_name }}</h1>
+    <div class="home-intro">{{ content }}</div>
+    <div class="paper-links">
+      {% if socials.github_username %}
+        <a href="https://github.com/{{ socials.github_username }}" target="_blank" rel="noopener">
+          {% include paper_icon.liquid name='github' %}GitHub</a
+        >
+      {% endif %}
+      {% if socials.scholar_userid %}
+        <a href="https://scholar.google.com/citations?user={{ socials.scholar_userid }}" target="_blank" rel="noopener">
+          {% include paper_icon.liquid name='scholar' %}Scholar</a
+        >
+      {% endif %}
+      {% if socials.email %}
+        <a href="mailto:{{ socials.email }}"> {% include paper_icon.liquid name='email' %}Email</a>
+      {% endif %}
+    </div>
+  </div>
+
+  <figure class="home-demo">
+    <div class="home-demo-frame">
+      {% if page.demo %}
+        {% assign demo_ext = page.demo | split: '.' | last | downcase %}
+        {% if demo_ext == 'mp4' or demo_ext == 'webm' %}
+          <video src="{{ page.demo | relative_url }}" autoplay muted loop playsinline></video>
+        {% else %}
+          <img src="{{ page.demo | relative_url }}" alt="{{ page.demo_caption | default: 'demo' }}">
+        {% endif %}
+      {% else %}
+        {% include paper_placeholder.liquid kind='bev' %}
+      {% endif %}
+    </div>
+    <figcaption>{{ page.demo_caption | default: '[내 모델의 데모 GIF/영상 자리]' }}</figcaption>
+  </figure>
+</section>
+
+{% if page.interests %}
+  <section class="home-section" aria-labelledby="home-interests">
+    <h2 id="home-interests">Interests</h2>
+    <div class="interest-grid">
+      {% for item in page.interests %}
+        <div class="paper-card interest-card">
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.text }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+{% endif %}
+
+{% assign featured = site.projects | where: 'featured', true | sort: 'importance' %}
+{% if featured.size == 0 %}{% assign featured = site.projects | sort: 'importance' %}{% endif %}
+{% if featured.size > 0 %}
+  <section class="home-section" aria-labelledby="home-research">
+    <div class="section-head">
+      <h2 id="home-research">Research</h2>
+      <a href="{{ '/research/' | relative_url }}">전체 보기 →</a>
+    </div>
+    <div class="research-grid">
+      {% for project in featured limit: 3 %}
+        {% include research_card.liquid project=project %}
+      {% endfor %}
+    </div>
+  </section>
+{% endif %}
+
+{% assign study_posts = site.posts | where_exp: 'p', "p.section == 'basic' or p.section == 'applied'" %}
+{% assign review_posts = site.posts | where: 'section', 'review' %}
+<section class="home-section" aria-labelledby="home-study">
+  <h2 id="home-study">Study</h2>
+  <div class="study-columns">
+    <div class="study-column">
+      <div class="study-column-head">
+        <h3>기초 · 응용</h3>
+        <a href="{{ '/study/' | relative_url }}">전체 보기 →</a>
+      </div>
+      {% for post in study_posts limit: 3 %}
+        <a class="study-item" href="{{ post.url | relative_url }}">
+          <span class="paper-label is-accent">
+            {%- if post.section == 'basic' %}기초{% else %}응용{% endif %} · {{ post.subject -}}
+          </span>
+          <span class="study-item-title">{{ post.title }}</span>
+        </a>
+      {% else %}
+        <p class="empty-note">아직 글이 없어요.</p>
+      {% endfor %}
+    </div>
+    <div class="study-column">
+      <div class="study-column-head">
+        <h3>Review</h3>
+        <a href="{{ '/study/#review' | relative_url }}">전체 보기 →</a>
+      </div>
+      {% for post in review_posts limit: 3 %}
+        <a class="study-item" href="{{ post.url | relative_url }}">
+          <span class="paper-label is-warm">{{ post.subject }}</span>
+          <span class="study-item-title">{{ post.title }}</span>
+        </a>
+      {% else %}
+        <p class="empty-note">아직 글이 없어요.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% include paper_scripts.liquid %}

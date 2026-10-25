@@ -2,7 +2,7 @@
 # Site settings
 # -----------------------------------------------------------------------------
 
-title: blank # the website title (if blank, full name will be used instead)
+title: Gyuhyeon Bak # the website title (if blank, full name will be used instead)
 first_name: Gyuhyeon
 middle_name:
 last_name: Bak
@@ -136,7 +136,7 @@ bing_site_verification: # out your bing-site-verification ID (Bing Webmaster)
 
 blog_name: Study
 blog_description: 기초 과목, 응용 지식, 리뷰
-permalink: /blog/:year/:title/
+permalink: /study/:year/:title/
 lsi: false # produce an index for related posts
 
 # Pagination
@@ -195,6 +195,10 @@ collections:
     output: true
   projects:
     output: true
+    permalink: /research/:name/
+  research_notes:
+    output: true
+    permalink: /research/notes/:name/
   teachings:
     output: true
 
@@ -232,7 +236,7 @@ exclude:
   - lighthouse_results/
   - package.json
   - package-lock.json
-  - _pages/about_einstein.md
+
   - purgecss.config.js
   - README.md
   - readme_preview/
@@ -296,6 +300,21 @@ defaults:
       path: "assets"
     values:
       sitemap: false
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: note
+  - scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: research
+  - scope:
+      path: ""
+      type: "research_notes"
+    values:
+      layout: research-note
 
 sass:
   style: compressed
