@@ -2,7 +2,7 @@
 title: "[테스트 1] 테스트 1"
 description: "[한두 문장 요약: 어떤 문제를 어떤 제약 속에서 해결했는지]"
 stack: [C--, ROS 3, TensorRT]
-importance: 1
+post_no: 2
 period: "[YYYY.MM – YYYY.MM]"
 role: "[담당한 부분]"
 partner: "[협력 기관, 예: 국내 완성차 업체]"

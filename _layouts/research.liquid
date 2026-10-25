@@ -11,7 +11,7 @@ layout: default
     media_caption
     period, role, venue       shown in the info band
     thumbnail, placeholder    card image on the home and Research pages
-    featured, importance      pick and order the home page's three cards
+    featured, post_no         pick the home page's three cards; post_no is the post number (1, 2, 3, ...), highest first
   Research notes for it live in _research_notes/ with `research: <this file's name>`.
 {%- endcomment -%}
 {% assign notes = site.research_notes | where: 'research', page.slug %}

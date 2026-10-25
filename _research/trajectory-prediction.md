@@ -4,7 +4,7 @@ description: "[한두 문장 요약: 어떤 문제를 풀었고, 무엇이 새�
 stack: [Transformer, Argoverse 2, PyTorch]
 placeholder: fan
 featured: true
-importance: 1
+post_no: 3
 period: "[YYYY.MM – YYYY.MM]"
 role: "[담당한 부분]"
 venue: "[학회/저널 또는 진행 중]"

@@ -7,8 +7,8 @@
 | 대상                       | 위치                                | 머리말                                                             |
 | ------------------------- | ---------------------------------- | ---------------------------------------------------------------------------- |
 | 메인 홈페이지                | `_pages/about.md`                   | `display_name`, `display_name_en`, `demo`, `interests`                       |
-| 연구                       | `_research/<이름>.md`                | `title`, `description`, `stack`, `featured`, `importance`, `period` 등       |
-| 기업 프로젝트                | `_projects/<이름>.md`                | `title`, `description`, `stack`, `importance`, `period`, `role`, `partner`  |
+| 연구                       | `_research/<이름>.md`                | `title`, `description`, `stack`, `featured`, `post_no`, `period` 등       |
+| 기업 프로젝트                | `_projects/<이름>.md`                | `title`, `description`, `stack`, `post_no`, `period`, `role`, `partner`  |
 | 연구 노트                   | `_research_notes/<날짜-이름>.md`      | `title`, `date`, `research: <연구 파일 이름>`, `kind: 실험 / 아이디어 / 회고`         |
 | Study 카테고리              | `_data/study.yml`                   |                                                                              |
 | Study 내용                 | `_posts/YYYY-MM-DD-<이름>.md`        | `title`, `section: basic / applied / review`, `subject`, `tags`              |

@@ -4,7 +4,7 @@ description: "[한두 문장 요약: 어떤 문제를 풀었고, 무엇이 새�
 stack: [Imitation Learning, Simulation]
 placeholder: arm
 featured: true
-importance: 3
+post_no: 1
 ---
 
 ## 문제 정의

@@ -2,7 +2,7 @@
 title: "[예시] 양산 차량 인지 모듈 오검출 대응"
 description: "[한두 문장 요약: 어떤 문제를 어떤 제약 속에서 해결했는지]"
 stack: [C++, ROS 2, TensorRT]
-importance: 1
+post_no: 1
 period: "[YYYY.MM – YYYY.MM]"
 role: "[담당한 부분]"
 partner: "[협력 기관, 예: 국내 완성차 업체]"

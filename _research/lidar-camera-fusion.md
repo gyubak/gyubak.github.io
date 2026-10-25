@@ -4,7 +4,7 @@ description: "[한두 문장 요약: 어떤 문제를 풀었고, 무엇이 새�
 stack: [PyTorch, nuScenes]
 placeholder: cloud
 featured: true
-importance: 2
+post_no: 2
 period: "[YYYY.MM – YYYY.MM]"
 role: "[담당한 부분]"
 ---
