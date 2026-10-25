@@ -6,6 +6,7 @@ layout: default
   Content of the page file is the one-paragraph introduction.
   Front matter:
     display_name   name shown large (defaults to the site title)
+    display_name_en  second name shown in grey beside it (optional)
     demo           image, GIF or mp4 in /assets/ shown beside the name
     demo_caption   caption under the demo
     interests      list of {title, text}
@@ -15,7 +16,12 @@ layout: default
 
 <section class="home-hero">
   <div class="home-hero-text">
-    <h1 class="home-name">{{ display_name }}</h1>
+    <h1 class="home-name">
+      <span class="home-name-main">{{ display_name }}</span>
+      {%- if page.display_name_en %}
+        <span class="home-name-en" lang="en">{{ page.display_name_en }}</span>
+      {%- endif %}
+    </h1>
     <div class="home-intro">{{ content }}</div>
     <div class="paper-links">
       {% if socials.github_username %}
