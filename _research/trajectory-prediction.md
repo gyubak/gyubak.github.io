@@ -6,12 +6,6 @@ placeholder: fan
 featured: true
 post_no: 3
 period: "[YYYY.MM – YYYY.MM]"
-role: "[담당한 부분]"
-venue: "[학회/저널 또는 진행 중]"
-# paper: https://...
-# code: https://github.com/gyubak/...
-# video: https://...
-# media: /assets/img/trajectory.gif
 # thumbnail: /assets/img/trajectory-thumb.mp4
 ---
 
