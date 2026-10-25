@@ -33,6 +33,6 @@
 @use "teachings";
 @use "typograms";
 
-// Site design: paper theme (local). Bump the revision when _sass/_paper.scss changes
-// so browsers fetch the new stylesheet right away. rev 2
+// Site design: paper theme (local).
+// assets/_sass/_paper.scss links to it so main.css?v= changes whenever it does.
 @use "paper";
