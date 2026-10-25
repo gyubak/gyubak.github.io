@@ -54,7 +54,7 @@
     var box = document.querySelector("[data-research-notes]");
     if (!box) return;
     var list = box.querySelector("[data-notes-list]");
-    var project = new URLSearchParams(window.location.search).get("project");
+    var project = new URLSearchParams(window.location.search).get("research");
     var entries = Array.prototype.slice.call(box.querySelectorAll(".rn-entry"));
     var visible = entries.filter(function (e) {
       var keep = !project || e.getAttribute("data-project") === project;

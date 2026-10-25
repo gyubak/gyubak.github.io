@@ -3,7 +3,7 @@ layout: paper-cv
 permalink: /cv/
 title: CV
 nav: true
-nav_order: 4
+nav_order: 5
 # CV 내용은 _data/cv.yml 에서 고칩니다. 여기서는 웹페이지의 섹션 제목만 정합니다.
 section_titles:
   education: 학력

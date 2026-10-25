@@ -1,0 +1,80 @@
+---
+layout: default
+---
+{%- comment -%}
+  One industry project (files in _projects/).
+  Front matter:
+    title, description        name and one-line summary
+    stack                     list of tech tags
+    period, role, partner     shown in the info band; partner can be generic,
+                              e.g. "국내 완성차 업체", when the name is under NDA
+    media, media_caption      optional image/GIF/mp4 under the header
+    importance                order on the Projects page and the home list
+{%- endcomment -%}
+<div class="paper-page">
+  <a class="back-link" href="{{ '/projects/' | relative_url }}">← Projects</a>
+
+  <div class="title-row">
+    <h1>{{ page.title }}</h1>
+  </div>
+
+  {% if page.description %}
+    <p class="lead">{{ page.description }}</p>
+  {% endif %}
+
+  {% if page.stack %}
+    <div class="tag-row">
+      {% for t in page.stack -%}
+        <span class="paper-tag">{{ t }}</span>
+      {%- endfor %}
+    </div>
+  {% endif %}
+
+  {% if page.media %}
+    <figure class="research-media">
+      <div class="research-media-frame">
+        {% assign media_ext = page.media | split: '.' | last | downcase %}
+        {% if media_ext == 'mp4' or media_ext == 'webm' %}
+          <video src="{{ page.media | relative_url }}" controls muted loop playsinline></video>
+        {% else %}
+          <img src="{{ page.media | relative_url }}" alt="{{ page.media_caption | default: page.title }}">
+        {% endif %}
+      </div>
+      {% if page.media_caption %}
+        <figcaption>{{ page.media_caption }}</figcaption>
+      {% endif %}
+    </figure>
+  {% endif %}
+
+  {% if page.period or page.role or page.partner %}
+    <dl class="info-band">
+      {% if page.period %}
+        <div>
+          <dt>기간</dt>
+          <dd>{{ page.period }}</dd>
+        </div>
+      {% endif %}
+      {% if page.role %}
+        <div>
+          <dt>역할</dt>
+          <dd>{{ page.role }}</dd>
+        </div>
+      {% endif %}
+      {% if page.partner %}
+        <div>
+          <dt>협력 기관</dt>
+          <dd>{{ page.partner }}</dd>
+        </div>
+      {% endif %}
+    </dl>
+  {% endif %}
+
+  <div class="two-col">
+    <aside class="two-col-side">{% include paper_toc.liquid %}</aside>
+    <article class="two-col-main paper-article" data-toc-root>
+      {{ content }}
+    </article>
+  </div>
+</div>
+
+{% include paper_scripts.liquid %}

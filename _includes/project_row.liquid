@@ -1,0 +1,15 @@
+{%- comment -%} One industry project as a list row. Usage: {% include project_row.liquid project=project %} {%- endcomment -%}
+{% assign p = include.project %}
+<a class="project-row" href="{{ p.url | relative_url }}">
+  <span class="project-row-main">
+    <span class="project-row-title">{{ p.title }}</span>
+    {% if p.description -%}
+      <span class="project-row-desc">{{ p.description }}</span>
+    {%- endif %}
+  </span>
+  <span class="paper-label project-row-meta">
+    {%- if p.partner %}{{ p.partner }}{% endif -%}
+    {%- if p.partner and p.period %} · {% endif -%}
+    {%- if p.period %}{{ p.period }}{% endif -%}
+  </span>
+</a>

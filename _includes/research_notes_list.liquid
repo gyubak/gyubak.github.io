@@ -1,7 +1,7 @@
 {%- comment -%}
-  /research/notes/?project=<slug> — the notes of one project as a dated log.
-  All notes are printed; assets/js/paper.js keeps only the chosen project's.
-  Note front matter: title, date, project, kind (실험 | 아이디어 | 회고 ...)
+  /research/notes/?research=<slug> — the notes of one project as a dated log.
+  All notes are printed; assets/js/paper.js keeps only the chosen research's.
+  Note front matter: title, date, research, kind (실험 | 아이디어 | 회고 ...)
   A note whose body is longer than its first paragraph gets a "계속 읽기" link.
 {%- endcomment -%}
 {% assign notes = site.research_notes | sort: 'date' | reverse %}
@@ -18,13 +18,13 @@
       {% assign current_month = '' %}
       {% for note in notes %}
         {% assign month = note.date | date: '%Y.%m' %}
-        {% assign project = site.projects | where: 'slug', note.project | first %}
+        {% assign research = site.research | where: 'slug', note.research | first %}
         <article
           class="rn-entry"
-          data-project="{{ note.project }}"
+          data-project="{{ note.research }}"
           data-month="{{ month }}"
-          data-project-title="{{ project.title | escape }}"
-          data-project-url="{{ project.url | relative_url }}"
+          data-project-title="{{ research.title | escape }}"
+          data-project-url="{{ research.url | relative_url }}"
         >
           <div class="rn-side">
             <span class="paper-label">{{ note.date | date: '%m.%d' }}</span>

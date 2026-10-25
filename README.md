@@ -7,8 +7,9 @@
 | 대상                       | 위치                                | 머리말                                                             |
 | ------------------------- | ---------------------------------- | ---------------------------------------------------------------------------- |
 | 메인 홈페이지                | `_pages/about.md`                   | `display_name`, `display_name_en`, `demo`, `interests`                       |
-| 연구                       | `_projects/<이름>.md`                | `title`, `description`, `stack`, `featured`, `importance`, `period` 등       |
-| 연구 노트                   | `_research_notes/<날짜-이름>.md`      | `title`, `date`, `project: <연구 파일 이름>`, `kind: 실험 / 아이디어 / 회고`         |
+| 연구                       | `_research/<이름>.md`                | `title`, `description`, `stack`, `featured`, `importance`, `period` 등       |
+| 기업 프로젝트                | `_projects/<이름>.md`                | `title`, `description`, `stack`, `importance`, `period`, `role`, `partner`  |
+| 연구 노트                   | `_research_notes/<날짜-이름>.md`      | `title`, `date`, `research: <연구 파일 이름>`, `kind: 실험 / 아이디어 / 회고`         |
 | Study 카테고리              | `_data/study.yml`                   |                                                                              |
 | Study 내용                 | `_posts/YYYY-MM-DD-<이름>.md`        | `title`, `section: basic / applied / review`, `subject`, `tags`              |
 | Publications              | `_bibliography/papers.bib`          | BibTeX                                                                       |
@@ -23,7 +24,7 @@
 ## 사이트 구조
 
 - `_config.yml` — 사이트 이름(`title`), 설명, 폰트 등 전체 설정
-- `_layouts/`, `_includes/` — 이 사이트 전용 페이지 틀 (메인, 연구, Study, 연구 노트, CV)
+- `_layouts/`, `_includes/` — 이 사이트 전용 페이지 틀 (메인, 연구, 프로젝트, Study, 연구 노트, CV)
 - `_sass/_paper.scss` — 디자인(색, 폰트, 간격). `assets/css/main.scss`가 불러옵니다
 - `assets/js/paper.js` — 목차, Study 탭, 연구 노트 필터
 - `bin/build_cv.py` — `_data/cv.yml`로 `assets/pdf/CV.pdf`, `Resume.pdf` 생성. `_data/cv.yml`이 바뀌면 `.github/workflows/render-cv.yml`이 자동 실행합니다

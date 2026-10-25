@@ -74,8 +74,8 @@ layout: default
   </section>
 {% endif %}
 
-{% assign featured = site.projects | where: 'featured', true | sort: 'importance' %}
-{% if featured.size == 0 %}{% assign featured = site.projects | sort: 'importance' %}{% endif %}
+{% assign featured = site.research | where: 'featured', true | sort: 'importance' %}
+{% if featured.size == 0 %}{% assign featured = site.research | sort: 'importance' %}{% endif %}
 {% if featured.size > 0 %}
   <section class="home-section" aria-labelledby="home-research">
     <div class="section-head">
@@ -85,6 +85,21 @@ layout: default
     <div class="research-grid">
       {% for project in featured limit: 3 %}
         {% include research_card.liquid project=project %}
+      {% endfor %}
+    </div>
+  </section>
+{% endif %}
+
+{% assign home_projects = site.projects | sort: 'importance' %}
+{% if home_projects.size > 0 %}
+  <section class="home-section" aria-labelledby="home-projects">
+    <div class="section-head">
+      <h2 id="home-projects">Projects</h2>
+      <a href="{{ '/projects/' | relative_url }}">전체 보기 →</a>
+    </div>
+    <div class="project-list">
+      {% for project in home_projects limit: 4 %}
+        {% include project_row.liquid project=project %}
       {% endfor %}
     </div>
   </section>

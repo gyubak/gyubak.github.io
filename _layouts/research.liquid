@@ -2,7 +2,7 @@
 layout: default
 ---
 {%- comment -%}
-  One research project (files in _projects/).
+  One research (files in _research/).
   Front matter:
     title, description        name and one-line summary
     stack                     list of tech tags
@@ -12,15 +12,15 @@ layout: default
     period, role, venue       shown in the info band
     thumbnail, placeholder    card image on the home and Research pages
     featured, importance      pick and order the home page's three cards
-  Research notes for this project live in _research_notes/ with `project: <this file's name>`.
+  Research notes for it live in _research_notes/ with `research: <this file's name>`.
 {%- endcomment -%}
-{% assign notes = site.research_notes | where: 'project', page.slug %}
+{% assign notes = site.research_notes | where: 'research', page.slug %}
 
 <div class="paper-page"> <a class="back-link" href="{{ '/research/' | relative_url }}">← Research</a>
 
 <div class="title-row"> <h1>{{ page.title }}</h1>
 {% if notes.size > 0 %}
-  <a class="notes-button" href="{{ '/research/notes/' | relative_url }}?project={{ page.slug }}">
+  <a class="notes-button" href="{{ '/research/notes/' | relative_url }}?research={{ page.slug }}">
   {% include paper_icon.liquid name='note' %}
   <span> <span class="notes-button-title">연구 노트 →</span> <span class="notes-button-sub">다듬지 않은 생각의 흐름</span> </span> </a>
 {% endif %}

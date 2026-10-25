@@ -1,7 +1,7 @@
 ---
 title: "[예시] 한 달 동안 시도한 것과 버린 것"
 date: 2026-09-30
-project: trajectory-prediction
+research: trajectory-prediction
 kind: 회고
 ---
 

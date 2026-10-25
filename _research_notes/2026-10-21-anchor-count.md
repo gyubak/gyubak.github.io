@@ -1,7 +1,7 @@
 ---
 title: "[예시] 앵커 개수를 늘렸더니 오히려 모드가 겹친다"
 date: 2026-10-21
-project: trajectory-prediction
+research: trajectory-prediction
 kind: 실험
 ---
 

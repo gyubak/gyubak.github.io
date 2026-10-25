@@ -2,14 +2,14 @@
 layout: default
 ---
 {%- comment -%} A single research note opened from "계속 읽기". {%- endcomment -%}
-{% assign project = site.projects | where: 'slug', page.project | first %}
+{% assign research = site.research | where: 'slug', page.research | first %}
 <div class="paper-page">
   <div class="two-col">
     <aside class="two-col-side note-side">{% include paper_toc.liquid %}</aside>
     <article class="two-col-main paper-article" data-toc-root>
       <p class="breadcrumb">
-        <a href="{{ '/research/notes/' | relative_url }}?project={{ page.project }}">연구 노트</a>
-        {% if project %}/ {{ project.title }}{% endif %}
+        <a href="{{ '/research/notes/' | relative_url }}?research={{ page.research }}">연구 노트</a>
+        {% if research %}/ {{ research.title }}{% endif %}
       </p>
       <h1 class="note-title">{{ page.title }}</h1>
       <div class="note-meta paper-label">

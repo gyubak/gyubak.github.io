@@ -193,9 +193,12 @@ collections:
     defaults:
       layout: post
     output: true
-  projects:
+  research:
     output: true
     permalink: /research/:name/
+  projects:
+    output: true
+    permalink: /projects/:name/
   research_notes:
     output: true
     permalink: /research/notes/:name/
@@ -307,9 +310,14 @@ defaults:
       layout: note
   - scope:
       path: ""
-      type: "projects"
+      type: "research"
     values:
       layout: research
+  - scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: project
   - scope:
       path: ""
       type: "research_notes"
