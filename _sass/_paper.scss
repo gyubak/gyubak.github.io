@@ -1,0 +1,400 @@
+/*******************************************************************************
+ * Paper theme — site-local design layer.
+ *
+ * Loaded last from assets/css/main.scss, so it wins over the theme's defaults.
+ * Rules of the design:
+ *   - one ground (notebook paper), one accent (ink navy), one warm secondary
+ *   - three typefaces with fixed roles: serif for headings, sans for reading,
+ *     mono for labels and code
+ *   - the same typeface only ever changes size or weight (no tracking, italics)
+ ******************************************************************************/
+
+:root {
+  --paper-bg: #f7f3ea;
+  --paper-card: #fffdf8;
+  --paper-sunk: #f1ebdd;
+  --paper-tag: #ede6d6;
+  --paper-line: #e3dccb;
+  --paper-line-strong: #d6cdb8;
+  --paper-mute-line: #b9af99;
+  --ink: #23201a;
+  --ink-body: #3e3a32;
+  --ink-soft: #57514a;
+  --ink-mute: #6b6457;
+  --accent: #1f4e8c;
+  --accent-warm: #b4532a;
+
+  --font-serif: "Gowun Batang", "Noto Serif KR", serif;
+  --font-sans: "IBM Plex Sans KR", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "IBM Plex Sans KR", monospace;
+
+  --nav-height: 64px;
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  // Map the theme's variables onto the paper palette.
+  --global-bg-color: var(--paper-bg);
+  --global-card-bg-color: var(--paper-card);
+  --global-code-bg-color: var(--paper-sunk);
+  --global-text-color: var(--ink);
+  --global-text-color-light: var(--ink-mute);
+  --global-theme-color: var(--accent);
+  --global-hover-color: var(--accent);
+  --global-hover-text-color: #ffffff;
+  --global-divider-color: var(--paper-line);
+  --global-footer-bg-color: var(--paper-bg);
+  --global-footer-text-color: var(--ink-mute);
+  --global-footer-link-color: var(--ink-body);
+  --global-highlight-color: var(--accent-warm);
+}
+
+/* ---------------------------------------------------------------- base type */
+
+html {
+  font-family: var(--font-sans);
+}
+
+body {
+  background-color: var(--paper-bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+.post-title,
+.page-title {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: normal;
+}
+
+h1 {
+  font-size: 40px;
+  line-height: 1.35;
+}
+h2 {
+  font-size: 26px;
+  line-height: 1.4;
+}
+h3 {
+  font-size: 20px;
+  line-height: 1.45;
+}
+h4 {
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+p,
+li {
+  color: var(--ink-body);
+}
+
+a {
+  color: var(--ink-body);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--accent);
+    text-decoration: none;
+  }
+}
+
+// Links inside running text stay recognisable as links.
+article p a,
+.post p a,
+.page-description a {
+  color: var(--accent);
+}
+
+code,
+pre,
+kbd,
+samp {
+  font-family: var(--font-mono);
+}
+
+:not(pre) > code {
+  background: var(--paper-tag);
+  color: var(--ink);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 0.875em;
+}
+
+pre,
+figure.highlight,
+.highlight {
+  background: var(--paper-card) !important;
+  border: 1px solid var(--paper-line);
+  border-radius: 8px;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--paper-line);
+}
+
+::selection {
+  background: rgba(31, 78, 140, 0.15);
+}
+
+/* ------------------------------------------------------------------- header */
+
+body.fixed-top-nav {
+  padding-top: var(--nav-height);
+}
+
+.navbar {
+  padding-top: 0;
+  padding-bottom: 0;
+  min-height: var(--nav-height);
+  background-color: var(--paper-bg);
+  opacity: 1;
+  border-bottom: 1px solid var(--paper-line);
+
+  > .container {
+    align-items: stretch;
+    min-height: var(--nav-height);
+  }
+}
+
+.navbar.navbar-light .navbar-brand {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ink);
+
+  span {
+    font-weight: 700;
+  }
+}
+
+// The brand is hidden on the home page by the theme; keep the menu on the right.
+.navbar .navbar-collapse-main {
+  align-items: stretch;
+}
+
+@media (min-width: 576px) {
+  .navbar-expand-sm .navbar-nav {
+    align-items: stretch;
+    // Let the active underline sit on top of the header's bottom rule.
+    margin-bottom: -1px;
+  }
+
+  .navbar.navbar-light .navbar-nav .nav-item {
+    display: flex;
+  }
+
+  .navbar.navbar-light .navbar-nav .nav-item .nav-link {
+    display: flex;
+    align-items: center;
+    height: calc(var(--nav-height) + 1px);
+    padding: 0 12px;
+  }
+}
+
+.navbar.navbar-light .navbar-nav .nav-item .nav-link {
+  position: relative;
+  font-family: var(--font-serif);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--ink-body);
+
+  &:hover {
+    color: var(--accent);
+  }
+}
+
+.navbar.navbar-light .navbar-nav .nav-item.active > .nav-link {
+  color: var(--ink);
+  font-weight: 700;
+
+  // The navy underline: one element per page, so the browser can slide it
+  // between pages with a view transition.
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: var(--accent);
+    view-transition-name: nav-underline;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .navbar > .container {
+    align-items: center;
+  }
+
+  .navbar.navbar-light .navbar-nav .nav-item .nav-link {
+    padding: 10px 0;
+  }
+
+  .navbar.navbar-light .navbar-nav .nav-item.active > .nav-link::after {
+    left: -10px;
+    right: auto;
+    top: 10px;
+    bottom: 10px;
+    width: 2px;
+    height: auto;
+  }
+}
+
+.navbar-toggler .icon-bar {
+  background-color: var(--ink);
+}
+
+/* ---------------------------------------------- page-to-page underline slide */
+
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-group(nav-underline) {
+  animation-duration: 480ms;
+  animation-timing-function: var(--spring);
+}
+
+// Keep the page itself still; only the underline moves.
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+}
+
+/* ------------------------------------------------------------------ footer */
+
+footer.sticky-bottom,
+footer.fixed-bottom {
+  background: var(--paper-bg);
+  border-top: 1px solid var(--paper-line);
+  font-size: 13px;
+  color: var(--ink-mute);
+  padding-top: 28px;
+  padding-bottom: 28px;
+
+  .container {
+    color: var(--ink-mute);
+  }
+
+  a {
+    color: var(--ink-body);
+
+    &:hover {
+      color: var(--accent);
+    }
+  }
+}
+
+/* ------------------------------------------------------------- page heading */
+
+.post-header,
+header.post-header {
+  margin-bottom: 24px;
+}
+
+.post-title {
+  font-size: 40px;
+  line-height: 1.35;
+}
+
+.post-description,
+.page-description {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  color: var(--ink-body);
+}
+
+/* ------------------------------------------------- shared small components */
+
+// Mono labels: tags, dates, categories.
+.paper-label {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--ink-mute);
+}
+
+.paper-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--paper-tag);
+  color: var(--ink-body);
+}
+
+.paper-card {
+  background: var(--paper-card);
+  border: 1px solid var(--paper-line);
+  border-radius: 12px;
+}
+
+// Left contents column with a navy marker on the current item.
+.paper-toc {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .paper-toc-title {
+    margin: 0 0 8px;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink-mute);
+  }
+
+  a {
+    padding: 8px 0 8px 14px;
+    border-left: 2px solid var(--paper-line);
+    font-size: 15px;
+    color: var(--ink-body);
+    transition: border-color 200ms ease;
+
+    &.active {
+      border-left-color: var(--accent);
+      color: var(--ink);
+    }
+  }
+}
+
+// Callouts.
+blockquote {
+  margin: 0 0 1rem;
+  padding: 16px 20px;
+  border: 1px solid #c9d6e8;
+  border-radius: 8px;
+  background: #eef2f8;
+  color: var(--ink-body);
+  font-size: 15px;
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Back-to-top button in paper colors.
+#back-to-top {
+  background: var(--ink-body);
+  color: var(--paper-card);
+}
