@@ -35,7 +35,7 @@ layout: default
         >
       {% endif %}
       {% if socials.email %}
-        <a href="mailto:{{ socials.email }}"> {% include paper_icon.liquid name='email' %}Email</a>
+        <a href="mailto:{{ socials.email }}"> {% include paper_icon.liquid name='email' %}{{ socials.email }}</a>
       {% endif %}
     </div>
   </div>
