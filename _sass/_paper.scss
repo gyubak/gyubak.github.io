@@ -505,12 +505,18 @@ h3[id] {
 
 /* -------------------------------------------------------------------- home */
 
+// The name's ink box shares its bottom-left corner with the page titles on
+// Research / Study / Publications (40px heading, 40px below the header).
+// Measured for Gowun Batang 700: "Research" @40px has its ink bottom 41.4px and
+// ink left 1px from the .paper-page top/left. "박규현" @56px sits 5.1px below its
+// baseline and starts 3.25px right of its origin; with a 70px line box its
+// baseline is 59.5px down. So the line box starts 16.8px down and 2.25px left.
 .home-hero {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
   gap: 56px;
-  padding: 56px 0 64px;
+  padding: 16.8px 0 64px;
 }
 
 .home-hero-text {
@@ -526,9 +532,9 @@ h3[id] {
   flex-wrap: wrap;
   align-items: baseline;
   gap: 4px 16px;
-  margin: 0;
-  font-size: 48px;
-  line-height: 1.25;
+  margin: 0 0 0 -2.25px;
+  font-size: 56px;
+  line-height: 70px;
 }
 
 // The English name beside the Korean one. Gowun Batang's Latin letters read
@@ -1200,7 +1206,8 @@ h3[id] {
 
 @media (max-width: 640px) {
   .home-name {
-    font-size: 40px;
+    font-size: 44px;
+    line-height: 56px;
   }
 
   h1,
