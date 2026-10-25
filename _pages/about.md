@@ -4,7 +4,7 @@ title: About
 permalink: /
 
 # 이름 아래 한 문단 소개는 맨 아래 본문에 씁니다.
-# display_name: Gyuhyeon Bak   # 크게 보일 이름 (비우면 사이트 제목)
+display_name: 박규현   # 크게 보일 이름 (비우면 사이트 제목)
 # demo: /assets/video/demo.mp4 # 데모 GIF·영상·이미지 경로
 demo_caption: "[내 모델의 데모 GIF/영상 자리]"
 
