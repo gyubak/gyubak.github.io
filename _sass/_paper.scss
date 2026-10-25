@@ -610,6 +610,8 @@ h3[id] {
 }
 
 .interest-card {
+  display: flex;
+  flex-direction: column;
   padding: 24px;
 
   h3 {
@@ -621,6 +623,11 @@ h3[id] {
     font-size: 15px;
     line-height: 1.7;
     color: var(--ink-soft);
+  }
+
+  .tag-row {
+    margin-top: auto;
+    padding-top: 16px;
   }
 }
 

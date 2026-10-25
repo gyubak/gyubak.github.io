@@ -9,7 +9,7 @@ layout: default
     display_name_en  second name shown in grey beside it (optional)
     demo           image, GIF or mp4 in /assets/ shown beside the name
     demo_caption   caption under the demo
-    interests      list of {title, text}
+    interests      list of {title, text, stack}; stack is an optional keyword list
 {%- endcomment -%}
 {% assign display_name = page.display_name | default: site.title %}
 {% assign socials = site.data.socials %}
@@ -68,6 +68,13 @@ layout: default
         <div class="paper-card interest-card">
           <h3>{{ item.title }}</h3>
           <p>{{ item.text }}</p>
+          {% if item.stack %}
+            <div class="tag-row">
+              {% for t in item.stack -%}
+                <span class="paper-tag">{{ t }}</span>
+              {%- endfor %}
+            </div>
+          {% endif %}
         </div>
       {% endfor %}
     </div>
