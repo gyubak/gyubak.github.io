@@ -1,0 +1,19 @@
+---
+layout: default
+permalink: /publications/
+title: Publications
+nav: true
+nav_order: 2
+---
+
+<!-- Same heading position as Research and Study (.paper-page). Papers come from _bibliography/papers.bib. -->
+<div class="paper-page">
+  <h1>Publications</h1>
+
+  {% capture paper_count %}{% bibliography_count %}{% endcapture %} {% assign paper_count = paper_count | strip | plus: 0 %} {% if paper_count > 0 %}
+  {% include bib_search.liquid %}
+  <div class="publications">{% bibliography %}</div>
+  {% else %}
+  <p class="empty-note">아직 논문이 없어요.</p>
+  {% endif %}
+</div>

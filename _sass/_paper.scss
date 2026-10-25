@@ -1342,3 +1342,20 @@ h3[id] {
     line-height: 1.7;
   }
 }
+
+/* ------------------------------------------- theme pages, same heading spot */
+
+// Pages still drawn by the theme's own layouts (404, repositories) put their
+// title where .paper-page does, so headings never jump between pages.
+.container[role="main"] > .post {
+  padding: 40px 0 72px;
+
+  > .post-header {
+    margin: 0 0 24px;
+    padding: 0;
+  }
+
+  .post-title {
+    margin: 0 0 12px;
+  }
+}
