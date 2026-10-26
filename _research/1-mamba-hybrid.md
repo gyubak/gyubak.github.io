@@ -1,6 +1,6 @@
 ---
-title: "주변 에이전트 미래 궤적 예측에서 Mamba 모델의 효용성 검증"
-description: "에이전트 궤적 예측에서 Mamba의 Hidden State는 GRU 대비 더 나은 성능을 보여주지 않는다."
+title: "에이전트 미래 궤적 예측에서 Mamba 모델의 효용성 검증"
+description: "Mamba의 Hidden State는 GRU 대비 더 나은 예측 성능을 보여주지 않는다."
 stack: [Mamba, GRU, Transformer]
 placeholder: arm
 featured: true
