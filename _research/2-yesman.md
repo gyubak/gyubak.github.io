@@ -5,7 +5,7 @@ stack: [VLM, Latent Transfuser, DiT]
 placeholder: cloud
 featured: true
 post_no: 2
-period: "2026.09 – 2026.10"
+period: "2026.09. – 2026.10."
 # thumbnail: /assets/img/trajectory-thumb.mp4
 ---
 

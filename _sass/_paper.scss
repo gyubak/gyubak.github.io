@@ -1307,15 +1307,13 @@ h3[id] {
 
 .cv-when {
   flex: 0 0 160px;
-  padding-top: 3px;
-  font-family: var(--font-mono);
-  font-size: 13px;
+  padding-top: 1px;
+  font-family: var(--font-sans);
+  font-size: 15px;
   color: var(--ink-mute);
 
   .is-skill & {
     padding-top: 0;
-    font-family: var(--font-sans);
-    font-size: 15px;
   }
 }
 

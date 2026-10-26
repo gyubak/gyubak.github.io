@@ -5,7 +5,7 @@ stack: [Mamba, GRU, Transformer]
 placeholder: arm
 featured: true
 post_no: 1
-period: "2026.07 – 2026.08"
+period: "2026.07. – 2026.08."
 # role: "연구 전체"
 # venue: "[학회/저널 또는 진행 중]"
 # paper: https://...
