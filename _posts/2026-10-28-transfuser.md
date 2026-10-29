@@ -113,9 +113,25 @@ $$
 
 #### Controller
 
+steer, throttle, brake 값(저수준 제어 신호)을 얻기 위해 두 개의 PID 컨트롤러를 사용한다.
+
+IL에서 발생하는 차량이 움직이지 않는 현상을 방지하고자 creeping 동작을 추가했으며 이것은 safety heuristic에 의해 traffic에 stuck된 경우와 같이 안전 문제로 creeping을 할 수 없는 상황인지 체크하여 creeping 동작을 수행한다.
+
 ### 2.4 Loss Functions
 
+모델이 예측한 waypoint와 GT waypoint는 L1 loss를 사용했다.
+
+#### Auxiliary Tasks
+
+ Aux. task는 더 해석가능하고 강건한 모델로 이어진다는 선행 연구를 바탕으로 aux. task를 설정한다.
+
+Aux. task로 (image branch feature를 가지고)depth prediction, semantic segmentation, (LiDAR branch feature를 가지고)HD map prediction, vehicle detection을 수행한다. depth prediction과 semantic segmentation은 AIM-MT의 디코더 구조를 차용했고, vehicle detection은 CenterNet 구조를 일부 차용했다. HD map prediction으로는 conv. decoder를 사용했다.
+
 ### 2.5 Latent Transfuser
+
+CIRLS는 CARLA 구버전에서 널리 사용되는 image-only baseline이나 (follow lane, change lane left/right, turn left/right)와 같이 discrete한 nav 커맨드는 challenging CARLA 리더보드에서 좋지 않은 성적을 나타낸다. 최근 연구들은 IL에서 보다 복잡한 RL 기반 학습을 쓰면서 베이스라인으로 CIRLS를 사용하고 있다. 미래의 연구에서 보다 의미있는 베이스라인을 제공하기 위해 Latent Transfuser을 소개한다.
+
+2채널 LiDAR BEV 히스토그램은 2채널 positional encoding으로 대체된다. (이 인코딩에 대한 설명 ...)
 
 ## 3 실험 설정
 
