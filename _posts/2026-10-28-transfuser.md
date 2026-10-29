@@ -61,7 +61,7 @@ Deep convolutional network는 싱글 모달리티를 가지고 globaal context�
 Policy는 input으로부터 waypoint로의 매핑이다.
 
 $$
-\underset{\pi}{\operatorname*{arg\,min}} \mathbb{E}_{(\mathcal{X}, \mathcal{W}) \sim \mathcal{D} } {[\mathcal{L}(\mathcal{W}, \pi(\mathcal{X}))]}
+\underset{\pi}{\operatorname*{argmin}} \ \mathbb{E}_{(\mathcal{X}, \mathcal{W}) \sim \mathcal{D} } {[\mathcal{L}(\mathcal{W}, \pi(\mathcal{X}))]}
 $$
 
 여기에서 데이터셋 $\mathcal{D}$는 $\mathcal{D}=\{(\mathcal{X}^i, \mathcal{W}^i)\}_{i=1}^Z$로 Z개의 샘플 중 $i$번째 샘플에 해당하는 장면의 센서 데이터 $\mathcal{X}^i$와 전문가의 미래 waypoint $\mathcal{W}^i$를 묶어서 데이터셋으로 구성한다.
