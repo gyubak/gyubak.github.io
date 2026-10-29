@@ -61,7 +61,7 @@ Deep convolutional network는 싱글 모달리티를 가지고 globaal context�
 Policy는 input으로부터 waypoint로의 매핑이다.
 
 $$
-\argmin_{\pi} \mathbb{E}_{(\mathcal{X}, \mathcal{W}) \sim \mathcal{D} } {[\mathcal{L}(\mathcal{W}, \pi(\mathcal{X}))]}
+\underset{\pi}{\operatorname*{arg\,min}} \mathbb{E}_{(\mathcal{X}, \mathcal{W}) \sim \mathcal{D} } {[\mathcal{L}(\mathcal{W}, \pi(\mathcal{X}))]}
 $$
 
 여기에서 데이터셋 $\mathcal{D}$는 $\mathcal{D}=\{(\mathcal{X}^i, \mathcal{W}^i)\}_{i=1}^Z$로 Z개의 샘플 중 $i$번째 샘플에 해당하는 장면의 센서 데이터 $\mathcal{X}^i$와 전문가의 미래 waypoint $\mathcal{W}^i$를 묶어서 데이터셋으로 구성한다.
@@ -106,6 +106,10 @@ cam과 lid의 상호 보완적인 특징을 바탕으로 self-attention 매커�
 
 #### Auto-regressive Waypoint Prediction Network
 
+위에서 구한 512차원 벡터는 AR의 연산 효율을 위해 MLP를 통해 64차원으로 압축된다. 이것이 바로 GRU의 hidden state로 들어가고 GRU의 첫 입력은 ego-frame에서 ego의 위치인 (0, 0)이다. GRU에는 Goal Location 에 대한 GPS 데이터도 함께 들어가며 AR 결과는 직전 point 대비의 변화량을 나타낸다.
+$$
+\{\mathbb{w}_t = \mathbb{w}_{t-1} + \delta w_t \}_{t=1}^T
+$$
 
 #### Controller
 
