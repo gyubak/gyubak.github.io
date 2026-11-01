@@ -186,9 +186,9 @@ $$
 
 - Infraction Score (IS): penalty coeff.의 product로 계산됨. coeff.는 논문에서 predefined하고 있는데, 예를 들어 ped와 충돌에 대한 coeff.는 0.5인데 이것을 3회 반복하면 ped에 대한 infraction score는 0.5^3 = 0.125점이 된다. 반면 아무런 infraction이 없으면 1이 된다.
 $$
-IS=\prod_{j}^{Ped,Veh,Stat,Red}(p^j)^{\#infractions^j}
+IS=\prod_{j}^{Ped,Veh,Stat,Red}(p^j)^{\\#infractions^j}
 $$
-여기에서 $p^{Ped}=0.50,\ p^{Veh}=0.60,\ p^{Stat}=0.65,\ p^{Red}=0.70$이며 $\#infractions^j$는 해당 infraction이 발생한 횟수이다.
+여기에서 $p^{Ped}=0.50,\ p^{Veh}=0.60,\ p^{Stat}=0.65,\ p^{Red}=0.70$이며 $\\#infractions^j$는 해당 infraction이 발생한 횟수이다.
 
 - Driving Score (DS): 경로 i에서 RC의 $R_i$와 IS의 $P_i$의 곱을 모든 경로에 대해 평균을 낸 것
 
@@ -199,7 +199,7 @@ $$
 - Infractions per km: 1km 주행 당 infraction 발생 횟수
 
 $$
-\text{Infractions per km}=\frac{\sum_i^N\#infractions_i}{\sum_i^Nk_i}
+\text{Infractions per km}=\frac{\sum_i^N\\#infractions_i}{\sum_i^Nk_i}
 $$
 
 #### Baseline
