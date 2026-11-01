@@ -307,7 +307,7 @@ TABLE 1과 3에서 single-stage IL 학습만으로 TransFuser가 SOTA급의 성�
 결론에서 저자들은 모델이 dynamic agent와 traffic light에 주목한 것이 infraction 감소와 높은 성능으로 이어졌다고 설명하지만, traffic light에 주목한 덕분이라는 근거는 데이터에서 확인하기 어려웠다. Longest6에서 TransFuser의 신호 위반(Red)은 0.16으로 LF(0.11), GF(0.13)보다 오히려 약간 많았고, infraction 감소는 차량 충돌에서 큰 비중을 차지한다. 따라서 벤치마크를 기반으로 보았을 때 신호등에 대한 주목이 성능 향상의 원인이라고 주장하기는 어려워 보인다.
 
 #### 한계
-- TABLE 5와 10에 따르면 Inertia Problem 설정과 Safety Heuristic 방식에 따라 성능이 크게 바뀌므로 저자도 언급햇듯이 시스템 단위의 안전성을 끌어올리기 위해서 이것들에 대한 연구가 필수적이다.
+- TABLE 5와 10에 따르면 Inertia Problem 설정과 Safety Heuristic 방식에 따라 성능이 크게 바뀌므로 저자도 언급했듯이 시스템 단위의 안전성을 끌어올리기 위해서 이것들에 대한 연구가 필수적이다.
 
 - 저자가 밝혔듯이 temporal input을 통해 dynamic agent들의 가속도와 속도를 추정하여 unprotected turn 같은 상황에서 vehicle collision을 낮출 수 있는 여지가 있어 보인다. 실제로 가장 두드러지는 infraction은 vehicle collision에서 두각을 나타냈고 그것의 원인으로 차선 변경과 unprotected turn에 대해 지목했기 때문이다. 반면 historical observation에서 ego 자신의 과거 움직임까지 함께 들어가 shortcut learning이 발생하는 것을 막기 위한 조치는 필수적일 것으로 보인다. 실제로 ego 속도를 입력에 넣은 ablation에서 성능이 크게 떨어졌다. 결국 다른 차량의 움직임 정보는 살리면서 ego의 과거 행동 정보는 배제하는 방법이 필요해 보인다.
 
