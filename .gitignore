@@ -20,3 +20,6 @@ vendor
 __pycache__/
 *.pyc
 .cv-build/
+
+# Local drafts (not published)
+drafts/
