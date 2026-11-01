@@ -16,9 +16,9 @@ tags: [TransFuser, review]
 
 ## 0 TL;DR
 
-한 줄 요약
+카메라 및 LiDAR 데이터 인코딩 중간 중간에 attention으로 fusion하여 global context를 도출하는 방식의 TransFuser가 단순한 single-stage imitation learning으로 CARLA에서 SOTA 수준의 주행 성능을 보여주었다.
 
-https://arxiv.org/pdf/2205.15997
+참고한 논문 링크: https://arxiv.org/pdf/2205.15997
 
 ## 1 배경
 
@@ -37,9 +37,9 @@ https://arxiv.org/pdf/2205.15997
 - motion forecasting
 - depth estimation
 
-이러한 메소드들은 3차원 장면의 기하학적이고 세맨틱한 정보를 담는(capture) 상태 표현(state representation)을 학습하는 것에 집중한다. 그것들은 주로 이미지 공간과 BEV(Bird's Eye View)나 RV(Range View)로 표현되는 LiDAR 투영 공간 간에 기하학적 특징 투영을 기반으로 동작한다. 일반적으로 2D/3D 투영 공간에 있는 각 특징들은 주변 데이터와 합쳐져서 정보를 이루는데 **이것이 복잡한 도시(urban) 시나리오에서 모델의 성능을 저하시키는 것을 확인했다(상단 표 참고).** 
+이러한 메소드들은 3차원 장면의 기하학적이고 세맨틱한 정보를 담는(capture) 상태 표현(state representation)을 학습하는 것에 집중한다. 그것들은 주로 이미지 공간과 BEV(Bird's Eye View)나 RV(Range View)로 표현되는 LiDAR 투영 공간 간에 기하학적 특징 투영을 기반으로 동작한다. 일반적으로 2D/3D 투영 공간에 있는 각 특징들은 주변 데이터와 합쳐져서 정보를 이루는데 TABLE 1에서 보이듯 **이것이 복잡한 도시(urban) 시나리오에서 모델의 성능을 저하시키는 것을 확인했다.** 
 
-예를 들어 위 그림과 같이 LiDAR에는 Traffic에 대한 정보가 있고, Camera에는 Traffic Light에 대한 정보가 있다. 두 정보는 각각 서로 다른 센서 데이터로 별개로 존재하며 공간 상 멀리 떨어져있다. 우리는 직관적으로 traffic light가 초록색이라면 traffic은 속도를 가지고 있을 확률이 높다고 생각할 수 있으며, 반대로 빨간색인 경우 traffic은 감속하거나 정지해있을 것이라고 생각할 수 있기 때문에 두 정보는 연관이 있는 정보이다. 반면 앞 문단에서 말했던 방식대로라면 두 정보는 공간 상 멀리 떨어져있기 때문에 상호 간의 연관성을 이해할 수 없다.
+예를 들어 Fig. 1과 같이 LiDAR에는 Traffic에 대한 정보가 있고, Camera에는 Traffic Light에 대한 정보가 있다. 두 정보는 각각 서로 다른 센서 데이터로 별개로 존재하며 공간 상 멀리 떨어져있다. 우리는 직관적으로 traffic light가 초록색이라면 traffic은 속도를 가지고 있을 확률이 높다고 생각할 수 있으며, 반대로 빨간색인 경우 traffic은 감속하거나 정지해있을 것이라고 생각할 수 있기 때문에 두 정보는 연관이 있는 정보이다. 반면 앞 문단에서 말했던 방식대로라면 두 정보는 공간 상 멀리 떨어져있기 때문에 상호 간의 연관성을 이해할 수 없다.
 
 ### 1.3 이 논문의 해결 방향
 Deep convolutional network는 싱글 모달리티를 가지고 globaal context를 표현(capture)하는데 사용할 수 있는 반면에 이것을 멀티 모달로 확장하는 것은 쉽지 않다(non-trivial). **우리는 3차원 장면에 대한 global contextual reasoning을 Transformer의 Attention 매커니즘을 이용하여 곧바로 다른 모달리티들의 feature extraction layer 안으로 통합한다.** (이 문장을 풀어서 얘기하자면, feature extraction 단계 중간 중간에 다른 모달리티의 중간 결과물을 가져와서 attention을 수행하면서 global context에 대한 reasoning을 하겠다는 의미이다. 다시 말하자면 Late Fusion을 하지 않고 Intermediate Fusion을 하겠다는 이야기를 하고 있는 것이고 그것을 선택한 이유에 대해서는 뒷 부분에 나온다.)
@@ -95,7 +95,7 @@ $$
 
 ### 2.3 Transfuser
 
-(사진 첨부)
+논문의 Fig. 2에 TransFuser의 아키텍처에 대해 그림으로 이해할 수 있다.
 
 #### Multi-modal Fusion Transformer
 cam과 lid의 상호 보완적인 특징을 바탕으로 self-attention 매커니즘과 접목하는 것이 우리의 핵심 아이디어이다. Transformer로 feature vector로 표현된 토큰 sequence가 들어가고 이 토큰에는 positional embedding이 포함된다.
@@ -136,6 +136,7 @@ CIRLS는 CARLA 구버전에서 널리 사용되는 image-only baseline이나 (fo
 2채널 LiDAR BEV 히스토그램은 2채널 positional encoding으로 대체된다. 원래는 LiDAR point cloud가 입력되어야 하지만 LTF는 camera-only이기 때문에 LiDAR 데이터를 넣을 수 없다. 그에 따라 라이다 브랜치를 없애는 것이 아니라 좌표 격자 데이터를 집어넣는다. 마찬가지의 2채널 BEV 맵인데 한 채널은 좌우 방향에 대해, 나머지 한 채널은 연징 상하방향을 나타내기 위해 예를 들어 아래와 같이 -1부터 1까지 등간격의 좌표 격자를 LiDAR 대신 입력한다.
 
 채널 1 (좌우 측)에 대한 예시
+
 $$
 \begin{bmatrix}
 -1 & -0.5 & 0 & 0.5 & 1 \\
@@ -218,7 +219,7 @@ $$
 
 #### Longest6 Benchmark Results
 | Method | DS ↑ | RC ↑ | IS ↑ | Ped ↓ | Veh ↓ | Stat ↓ | Red ↓ | OR ↓ | Dev ↓ | TO ↓ | Block ↓ |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | 
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | WOR | 20.53±3.12 | 48.47±3.86 | **0.56**±0.03 | 0.18 | 1.05 | 0.37 | 1.28 | 0.47 | 0.88 | 0.08 | 0.20 |
 | Latent TransFuser (Ours)| 37.31±5.35 | **95.18**±0.45 | 0.38±0.05 | **0.03** | 3.66 | 0.18 | 0.13 | **0.04** | **0.00** | 0.12 | **0.05** |
 | LAV | 32.74±1.45 | 70.36±3.14 | 0.51±0.02 | 0.16 | **0.83** | 0.15 | 0.96 | 0.42 | 0.06 | 0.12 | 0.45 |
