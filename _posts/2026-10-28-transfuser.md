@@ -187,7 +187,7 @@ $$
 
 - Infraction Score (IS): penalty coeff.의 product로 계산됨. coeff.는 논문에서 predefined하고 있는데, 예를 들어 ped와 충돌에 대한 coeff.는 0.5인데 이것을 3회 반복하면 ped에 대한 infraction score는 0.5^3 = 0.125점이 된다. 반면 아무런 infraction이 없으면 1이 된다.
 $$
-IS=\prod_{j}^{Ped,Veh,Stat,Red}(p^j)^{\\#infractions^j}
+IS=\prod_{j}^{Ped,Veh,Stat,Red}(p^j)^{\#infractions^j}
 $$
 여기에서 $p^{Ped}=0.50,\ p^{Veh}=0.60,\ p^{Stat}=0.65,\ p^{Red}=0.70$이며 $\\#infractions^j$는 해당 infraction이 발생한 횟수이다.
 
@@ -200,7 +200,7 @@ $$
 - Infractions per km: 1km 주행 당 infraction 발생 횟수
 
 $$
-\text{Infractions per km}=\frac{\sum_i^N\\#infractions_i}{\sum_i^Nk_i}
+\text{Infractions per km}=\frac{\sum_i^N\#infractions_i}{\sum_i^Nk_i}
 $$
 
 #### Baseline
@@ -218,6 +218,7 @@ $$
 ## 4 실험 결과
 
 #### Longest6 Benchmark Results
+
 | Method | DS ↑ | RC ↑ | IS ↑ | Ped ↓ | Veh ↓ | Stat ↓ | Red ↓ | OR ↓ | Dev ↓ | TO ↓ | Block ↓ |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | WOR | 20.53±3.12 | 48.47±3.86 | **0.56**±0.03 | 0.18 | 1.05 | 0.37 | 1.28 | 0.47 | 0.88 | 0.08 | 0.20 |
@@ -235,6 +236,7 @@ TransFuser는 주행 점수에서 가장 좋은 성능을 보였고 LF, GF 대�
 - 한계: 높은 RC를 가지는 모델들은 하나같이 Veh에서 부진하다. 이런 충돌은 주로 비보호 턴과 차선 변경에서 발생했다.
 
 #### Runtime
+
 | Method | Single Model [ms/frame] | Ensemble (3) [ms/frame] |
 | --- | --- | --- |
 | Latent Fusion (LF) | 23.5 | 46.7 |
@@ -244,6 +246,7 @@ TransFuser는 주행 점수에서 가장 좋은 성능을 보였고 LF, GF 대�
 Runtime 평가는 RTX 3090 한 장으로 평가 루트의 모든 타임 스텝을 평균하여 측정함. 이 runtime에는 data-preprocessing, model inference와 PID Control을 포함하며 LF 대비 17%-28% 낮은 성능을 보이나 단일 모델은 여전히 이 HW에서 real-time으로 동작할 수 있다. GF는 image 토큰과 LiDAR 토큰 간의 상관관계를 찾는데 추가적인 시간이 소요되므로 더 간단한 매커니즘에도 불구하고 runtime 성능에서 GF가 불리하였다.
 
 #### Leaderboard Results
+
 | Method | LiDAR? | DS ↑ | RC ↑ | IS ↑ |
 | --- | --- | --- | --- | --- |
 | NEAT | - | 21.83 | 41.71 | 0.65 |
@@ -280,7 +283,6 @@ Ablation Studies에서 많은 것들을 이야기하고 있지만, 그 중에 �
 
 ## 5 결론과 한계
 #### 결론
-- ### Conclusion
 기존 센서 퓨전 방식에 기반한 IL 정책이 교통이 복잡한 상황에서 위반이 많다는 점을 보이고, 이를 해결하기 위해 attention으로 3D 장면의 전역적 맥락을 포착하는 TransFuser를 제안했다. TransFuser는 주변 차량과 신호등에 주목하며 위반을 크게 줄였고 벤치마크에서 높은 성능을 보여주었다. 방법이 단순하고 범용적이므로 레이더 같은 다른 센서나 다른 embodied AI 과제로도 확장할 수 있을 것이라 기대한다. 또한 긴 경로와 밀집 교통으로 구성된 Longest6 벤치마크가 평가 시간이 제한된 CARLA leaderboard 대신 ablation과 상세 분석에 활용되기를 바란다고 밝힌다.
 
 #### 한계
