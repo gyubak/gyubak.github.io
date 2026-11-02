@@ -3,6 +3,7 @@
  *  - Contents column: built from h2 headings, follows the scroll with a springy navy marker
  *  - Study page: tabs and subject list with sliding markers
  *  - Research notes: show one project's notes, grouped by month
+ *  - Research page: summary / detail toggle
  *  - Research cards: preview videos play on hover
  */
 (function () {
@@ -100,23 +101,35 @@
   function setupToc(toc) {
     var root = document.querySelector(toc.getAttribute("data-root") || "[data-toc-root]");
     if (!root) return;
-    var heads = Array.prototype.slice.call(root.querySelectorAll("h2"));
-    if (!heads.length) return;
-
     var list = toc.querySelector(".paper-toc-list");
-    var links = heads.map(function (h, i) {
-      if (!h.id) h.id = "section-" + (i + 1);
-      var a = document.createElement("a");
-      a.href = "#" + h.id;
-      a.textContent = h.textContent;
-      list.appendChild(a);
-      return a;
-    });
-    toc.hidden = false;
-    var marker = makeMarker(list, "paper-toc-marker");
-
+    var heads = [];
+    var links = [];
+    var marker = null;
     var current = -1;
+
+    // Rebuilt when the research page switches between summary and detail.
+    function build() {
+      list.textContent = "";
+      heads = Array.prototype.slice.call(root.querySelectorAll("h2")).filter(function (h) {
+        return !h.closest("[hidden]");
+      });
+      toc.hidden = !heads.length;
+      if (!heads.length) return;
+      links = heads.map(function (h, i) {
+        if (!h.id) h.id = "section-" + (i + 1);
+        var a = document.createElement("a");
+        a.href = "#" + h.id;
+        a.textContent = h.textContent;
+        list.appendChild(a);
+        return a;
+      });
+      marker = makeMarker(list, "paper-toc-marker");
+      current = -1;
+      update(true);
+    }
+
     function update(instant) {
+      if (!heads.length) return;
       var idx = 0;
       for (var i = 0; i < heads.length; i++) {
         if (heads[i].getBoundingClientRect().top - NAV_OFFSET <= 1) idx = i;
@@ -147,7 +160,49 @@
     window.addEventListener("resize", function () {
       update(true);
     });
-    update(true);
+    root.addEventListener("paper:viewchange", build);
+    build();
+  }
+
+  /* ------------------------------------------------- research summary/detail */
+
+  function setupViewToggle() {
+    var toggle = document.querySelector("[data-view-toggle]");
+    var root = document.querySelector("[data-toc-root]");
+    if (!toggle || !root) return;
+    var panels = Array.prototype.slice.call(root.querySelectorAll("[data-view-panel]"));
+    var buttons = Array.prototype.slice.call(toggle.querySelectorAll("button[data-view]"));
+    toggle.hidden = false;
+    var marker = makeMarker(toggle, "view-toggle-indicator");
+
+    function show(view, instant) {
+      panels.forEach(function (p) {
+        p.hidden = p.getAttribute("data-view-panel") !== view;
+      });
+      var active = null;
+      buttons.forEach(function (b) {
+        var on = b.getAttribute("data-view") === view;
+        b.setAttribute("aria-pressed", on ? "true" : "false");
+        if (on) active = b;
+      });
+      placeMarker(marker, toggle, active, "x", instant);
+      root.dispatchEvent(new CustomEvent("paper:viewchange"));
+    }
+
+    Array.prototype.forEach.call(document.querySelectorAll("button[data-view]"), function (b) {
+      b.addEventListener("click", function () {
+        var fromBottom = !toggle.contains(b);
+        show(b.getAttribute("data-view"), false);
+        // The button at the end of the summary jumps back to the top of the text.
+        if (fromBottom) window.scrollTo(0, toggle.getBoundingClientRect().top + window.scrollY - NAV_OFFSET);
+      });
+    });
+    function realign() {
+      placeMarker(marker, toggle, toggle.querySelector('[aria-pressed="true"]'), "x", true);
+    }
+    window.addEventListener("resize", realign);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(realign);
+    show("summary", true);
   }
 
   /* ------------------------------------------------------------ study page */
@@ -337,6 +392,7 @@
 
   function init() {
     setupResearchNotes();
+    setupViewToggle();
     Array.prototype.forEach.call(document.querySelectorAll("[data-paper-toc]"), setupToc);
     setupStudy();
     setupHoverVideos();
