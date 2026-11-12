@@ -14,7 +14,7 @@ layout: default
     featured, post_no         pick the home page's three cards; post_no is the post number (1, 2, 3, ...), highest first
   Research notes for it live in _research_notes/ with `research: <this file's name>`.
   Summary / detail views: write the summary first, then a line `<!-- detail -->`,
-  then the full text. The page opens on the summary with a toggle beside the title.
+  then the full text. The page opens on the summary; the toggle sits above CONTENTS in the sticky side column.
 {%- endcomment -%}
 {% assign notes = site.research_notes | where: 'research', page.slug %}
 {% assign view_parts = content | split: '<!-- detail -->' %}
@@ -27,12 +27,6 @@ layout: default
   <a class="notes-button" href="{{ '/research/notes/' | relative_url }}?research={{ page.slug }}">
   {% include paper_icon.liquid name='note' %}
   <span> <span class="notes-button-title">연구 노트 →</span> <span class="notes-button-sub">다듬지 않은 생각의 흐름</span> </span> </a>
-{% endif %}
-{% if view_parts.size > 1 %}
-  <div class="view-toggle" role="group" aria-label="보기 방식" data-view-toggle hidden>
-    <button type="button" data-view="summary" aria-pressed="true">요약</button>
-    <button type="button" data-view="detail" aria-pressed="false">상세</button>
-  </div>
 {% endif %}
 </div>
 </div>
@@ -70,7 +64,15 @@ layout: default
   </dl>
 {% endif %}
 
-<div class="two-col"> <aside class="two-col-side">{% include paper_toc.liquid %}</aside> <article class="two-col-main paper-article" data-toc-root>
+<div class="two-col"> <aside class="two-col-side"> <div class="side-sticky">
+{% if view_parts.size > 1 %}
+  <div class="view-toggle" role="group" aria-label="보기 방식" data-view-toggle hidden>
+    <button type="button" data-view="summary" aria-pressed="true">요약</button>
+    <button type="button" data-view="detail" aria-pressed="false">상세</button>
+  </div>
+{% endif %}
+{% include paper_toc.liquid %}
+</div> </aside> <article class="two-col-main paper-article" data-toc-root>
 {% if view_parts.size > 1 %}
   <section data-view-panel="summary">
   {{ view_parts[0] }}

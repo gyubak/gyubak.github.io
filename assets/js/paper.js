@@ -194,7 +194,8 @@
         var fromBottom = !toggle.contains(b);
         show(b.getAttribute("data-view"), false);
         // The button at the end of the summary jumps back to the top of the text.
-        if (fromBottom) window.scrollTo(0, toggle.getBoundingClientRect().top + window.scrollY - NAV_OFFSET);
+        // (The toggle itself is sticky in the side column, so the text is the anchor.)
+        if (fromBottom) window.scrollTo(0, root.getBoundingClientRect().top + window.scrollY - NAV_OFFSET);
       });
     });
     function realign() {

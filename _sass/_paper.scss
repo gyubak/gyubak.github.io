@@ -4,7 +4,7 @@
  * Loaded last from assets/css/main.scss, so it wins over the theme's defaults.
  * Rules of the design:
  *   - one ground (notebook paper), one accent (ink navy), one warm secondary
- *   - three typefaces with fixed roles: serif for headings, sans for reading,
+ *   - two typefaces with fixed roles: sans for headings and reading,
  *     mono for labels and code
  *   - the same typeface only ever changes size or weight (no tracking, italics)
  ******************************************************************************/
@@ -24,7 +24,6 @@
   --accent: #1f4e8c;
   --accent-warm: #b4532a;
 
-  --font-serif: "Gowun Batang", "Noto Serif KR", serif;
   --font-sans: "IBM Plex Sans KR", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "IBM Plex Sans KR", monospace;
   --font-name: "Noto Sans KR", var(--font-sans); // the big name on the home page
@@ -70,7 +69,7 @@ h3,
 h4,
 .post-title,
 .page-title {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-weight: 700;
   color: var(--ink);
   letter-spacing: normal;
@@ -172,7 +171,7 @@ body.fixed-top-nav {
   align-items: center;
   margin: 0;
   padding: 0;
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: 20px;
   font-weight: 700;
   color: var(--ink);
@@ -208,7 +207,7 @@ body.fixed-top-nav {
 
 .navbar.navbar-light .navbar-nav .nav-item .nav-link {
   position: relative;
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: 16px;
   font-weight: 400;
   color: var(--ink-body);
@@ -508,7 +507,8 @@ h3[id] {
 
 // The name's ink box shares its bottom-left corner with the page titles on
 // Research / Study / Publications (40px heading, 40px below the header).
-// Measured for Gowun Batang 700: "Research" @40px has its ink bottom 41.4px and
+// Measured when the headings were Gowun Batang 700 (now IBM Plex Sans KR, so
+// re-check by eye): "Research" @40px has its ink bottom 41.4px and
 // ink left 1px from the .paper-page top/left. "박규현" in Noto Sans KR 600
 // @56px sits 4.8px below its baseline and starts 4.1px right of its origin;
 // with a 70px line box its baseline is 59.5px down. So the line box starts
@@ -865,9 +865,29 @@ h3[id] {
 }
 
 // Summary / detail switch; the navy pill is placed by paper.js.
+// The panels are <section>s, which the theme styles with a display value; that
+// beats the browser's own [hidden] rule, so the attribute has to win explicitly.
+[data-view-panel][hidden] {
+  display: none !important;
+}
+
+// Left column of a research page: the toggle sits above CONTENTS and both stay
+// in view while the text scrolls.
+.side-sticky {
+  position: sticky;
+  top: calc(var(--nav-height) + 24px);
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+
+  .paper-toc {
+    position: static;
+  }
+}
+
 .view-toggle {
   position: relative;
-  display: inline-flex;
+  display: flex;
   padding: 3px;
   border-radius: 999px;
   background: var(--paper-card);
@@ -879,9 +899,10 @@ h3[id] {
     appearance: none;
     background: none;
     border: 0;
-    min-width: 72px;
+    flex: 1 1 0;
+    min-width: 0;
     height: 38px;
-    padding: 0 16px;
+    padding: 0 12px;
     border-radius: 999px;
     font-family: var(--font-sans);
     font-size: 15px;
@@ -1316,6 +1337,10 @@ h3[id] {
 
   .two-col-side {
     flex-basis: 100%;
+  }
+
+  .side-sticky {
+    position: static;
   }
 
   .two-col-side .paper-toc {
