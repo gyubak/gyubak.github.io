@@ -7,7 +7,7 @@ featured: true
 post_no: 2
 period: "Sep 2026 – Oct 2026"
 code: https://github.com/gyubak/yesman   # 공개 여부 확인 후 주석 해제
-# media: /assets/img/yesman/fig_follow_safety.png
+media: /assets/img/yesman/fig_follow_safety.png
 # thumbnail: /assets/img/trajectory-thumb.mp4
 ---
 
