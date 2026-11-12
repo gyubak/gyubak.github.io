@@ -8,7 +8,7 @@ post_no: 2
 period: "Sep 2026 – Oct 2026"
 code: https://github.com/gyubak/yesman
 media: /assets/img/yesman/fig1_follow_safety_ladder.png
-# thumbnail: /assets/img/trajectory-thumb.mp4
+thumbnail: /assets/img/yesman/thumb_fig3_front.jpg
 ---
 
 **YESMAN**: **Y**our **E**go-planner **S**houldn't **M**indlessly **A**ccept **N**onsense
