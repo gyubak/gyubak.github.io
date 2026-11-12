@@ -70,7 +70,7 @@ h4,
 .post-title,
 .page-title {
   font-family: var(--font-sans);
-  font-weight: 700;
+  font-weight: 600;
   color: var(--ink);
   letter-spacing: normal;
 }
@@ -95,6 +95,12 @@ h4 {
 p,
 li {
   color: var(--ink-body);
+}
+
+// IBM Plex Sans KR gets heavy and round at 700, so bold stops at SemiBold.
+strong,
+b {
+  font-weight: 600;
 }
 
 a {
@@ -173,11 +179,11 @@ body.fixed-top-nav {
   padding: 0;
   font-family: var(--font-sans);
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--ink);
 
   span {
-    font-weight: 700;
+    font-weight: 600;
   }
 }
 
@@ -219,7 +225,7 @@ body.fixed-top-nav {
 
 .navbar.navbar-light .navbar-nav .nav-item.active > .nav-link {
   color: var(--ink);
-  font-weight: 700;
+  font-weight: 600;
 
   // The navy underline: one element per page, so the browser can slide it
   // between pages with a view transition.
