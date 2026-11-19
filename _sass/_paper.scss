@@ -605,8 +605,11 @@ h3[id] {
 .home-section {
   padding-bottom: 72px;
 
+  // Section titles (Interests, Research, ...) are Bold so they stand apart
+  // from the SemiBold card titles (h3) right below them.
   h2 {
     margin: 0 0 24px;
+    font-weight: 700;
   }
 
   .section-head {
