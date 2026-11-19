@@ -481,7 +481,7 @@ L2 판정은 보수적이다. L2는 판정할 장면의 사람 경로가 아니�
 11. K. Chitta, A. Prakash, B. Jaeger, Z. Yu, K. Renz, A. Geiger, "TransFuser: Imitation with Transformer-Based Sensor Fusion for Autonomous Driving," IEEE TPAMI, vol. 45, no. 11, pp. 12878–12895, 2023.
 12. H. Caesar et al., "nuPlan: A closed-loop ML-based planning benchmark for autonomous vehicles," arXiv:2106.11810, 2021.
 
-## Appendix A. 부록
+## Appendix A
 
 **TABLE A1. 시드별 값 (시드 0 / 시드 1)**
 
