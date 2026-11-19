@@ -7,7 +7,7 @@ featured: true
 post_no: 2
 period: "Sep 2026 – Oct 2026"
 code: https://github.com/gyubak/yesman
-media: /assets/img/yesman/fig2_architecture.jpg
+media: /assets/img/yesman/fig2_architecture.png
 thumbnail: /assets/img/yesman/thumb_fig3_front.jpg
 ---
 
