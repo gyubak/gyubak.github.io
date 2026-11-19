@@ -4,10 +4,16 @@
  * Loaded last from assets/css/main.scss, so it wins over the theme's defaults.
  * Rules of the design:
  *   - one ground (notebook paper), one accent (ink navy), one warm secondary
- *   - two typefaces with fixed roles: sans for headings and reading,
- *     mono for labels and code
+ *   - one typeface for everything people read: Montserrat for Latin and
+ *     Pretendard for Hangul (Montserrat has no Hangul, so the stack falls
+ *     through to Pretendard); mono is kept for code only
  *   - the same typeface only ever changes size or weight (no tracking, italics)
  ******************************************************************************/
+
+// Pretendard is not on Google Fonts, so it is loaded here. The dynamic subset
+// downloads only the glyph ranges a page uses. Plain CSS @imports are hoisted
+// to the top of the compiled stylesheet by Sass.
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.css");
 
 :root {
   --paper-bg: #f7f3ea;
@@ -24,9 +30,9 @@
   --accent: #1f4e8c;
   --accent-warm: #b4532a;
 
-  --font-sans: "IBM Plex Sans KR", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", "IBM Plex Sans KR", monospace;
-  --font-name: "Noto Sans KR", var(--font-sans); // the big name on the home page
+  --font-sans: "Montserrat", "Pretendard", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Pretendard", monospace; // code only
+  --font-name: var(--font-sans); // the big name on the home page
 
   --nav-height: 64px;
   --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -97,7 +103,8 @@ li {
   color: var(--ink-body);
 }
 
-// IBM Plex Sans KR gets heavy and round at 700, so bold stops at SemiBold.
+// Bold stops at SemiBold (600). The previous typeface (IBM Plex Sans KR) got
+// heavy and round at 700; try 700 again by eye now that it has been replaced.
 strong,
 b {
   font-weight: 600;
@@ -332,17 +339,19 @@ header.post-header {
 
 /* ------------------------------------------------- shared small components */
 
-// Mono labels: tags, dates, categories.
+// Small labels: tags, dates, categories.
 .paper-label {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 13px;
+  font-weight: 500;
   color: var(--ink-mute);
 }
 
 .paper-tag {
   display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 13px;
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 500;
   line-height: 1.5;
   padding: 3px 8px;
   border-radius: 4px;
@@ -1216,9 +1225,9 @@ h3[id] {
 }
 
 .study-count {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 13px;
-  font-weight: 400;
+  font-weight: 500;
   color: var(--ink-mute);
 }
 

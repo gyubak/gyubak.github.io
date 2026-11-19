@@ -242,7 +242,7 @@ T0의 18,219장면에 대한 영상을 VLM에 입력해서 나온 결정들을 L
 
 ## 3 실험 결과
 
-> cloud computing resource 점유 경쟁과 rental 비용의 제약으로 축소된 실험의 결과로 fine-tuning, 하이퍼파라미터 변경 등으로 성능 개선의 여지가 있다.
+> Cloud computing resource 점유 경쟁과 rental 비용의 제약으로 인해 축소된 실험의 결과로 fine-tuning, 하이퍼파라미터 변경 등으로 성능 개선의 여지가 있다.
 
 **TABLE 1. 전체 결과**
 
