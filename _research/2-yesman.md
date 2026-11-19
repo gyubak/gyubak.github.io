@@ -425,7 +425,7 @@ B4 vs B2의 성공은 판단 head가 없는 B3에서도 같은 크기로 나타�
 - 규칙으로 생성한 틀린 결정과 실제 VLM의 틀린 결정은 구성이 달랐다. 실제 VLM 오답의 절반 이상은 일반적으로 깊이 정보와 속도 정보가 필요한 강도 기준 오답이었다. 규칙으로 생성한 오답만으로 평가하면 CF⁻를 학습한 planner의 안전율이 약 21%p 높게 측정되었으나 CF⁻ 학습의 효과는 두 평가 세트 모두에서 나타났다.
 - 정답만 학습한 planner의 한계(주장 1)와 CF⁻ 학습의 효과(주장 2)는 한 가지 요소만 다른 모델 간의 비교와 한 번만 평가한 테스트 세트로 뒷받침된다. 반면 그 원인에 대한 설명과 CF⁻의 유형에 대한 분석(주장 3의 TABLE 7)은 사후 분석 또는 탐색적 분석에 근거하므로 독립된 데이터에서의 확인이 필요하다.
 
-## 4.2 논의 
+### 4.2 논의 
 
 L2 판정은 보수적이다. L2는 판정할 장면의 사람 경로가 아니라 다른 장면의 사람 경로를 옮긴 후보만 시험하므로 후보가 장면에 맞지 않으면 실행 가능한 결정도 실행 불가능으로 판정된다. TABLE 2의 따름·안전(B3 6.2%, B2 7.8%)은 이 때문에 생긴다. TABLE 9는 T3의 실행 불가능한 결정 중 평가한 모델 경로 12개(6개 모델 × 시드 2개) 중 하나 이상이 결정을 따르면서 충돌, 도로 이탈, 역주행을 모두 피한 결정의 수이다(사후 분석).
 
@@ -466,7 +466,7 @@ L2 판정은 보수적이다. L2는 판정할 장면의 사람 경로가 아니�
 
 초기 실험에서 평가 세트의 결과를 확인하며 설계를 수정했기 때문에 그 평가 세트의 결과를 더 이상 주 결과로 사용할 수 없었다. 이에 따라 사용하지 않은 데이터로 새로운 테스트 세트를 구성하고 성공 기준을 미리 고정한 뒤 한 번만 평가하는 절차를 도입하였다. 이것은 Stanford의 CS229에서 Andrew Ng 교수님이 강조했던 내용이고 이번 실험에서 그것을 적용한 사례이다.
 
-## References
+## 6 References
 
 1. Y. Song et al., "Senna-2: Aligning VLM and End-to-End Driving Policy for Consistent Decision Making and Planning," arXiv:2603.11219, 2026.
 2. H. Shao et al., "LMDrive: Closed-Loop End-to-End Driving with Large Language Models," CVPR, 2024.
@@ -481,7 +481,7 @@ L2 판정은 보수적이다. L2는 판정할 장면의 사람 경로가 아니�
 11. K. Chitta, A. Prakash, B. Jaeger, Z. Yu, K. Renz, A. Geiger, "TransFuser: Imitation with Transformer-Based Sensor Fusion for Autonomous Driving," IEEE TPAMI, vol. 45, no. 11, pp. 12878–12895, 2023.
 12. H. Caesar et al., "nuPlan: A closed-loop ML-based planning benchmark for autonomous vehicles," arXiv:2106.11810, 2021.
 
-## 부록
+## Appendix A. 부록
 
 **TABLE A1. 시드별 값 (시드 0 / 시드 1)**
 
